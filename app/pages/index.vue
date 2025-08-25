@@ -4,8 +4,8 @@
       <h2 class="text-4xl font-extrabold text-gray-900 dark:text-white">Move goods faster with ACME Logistics</h2>
       <p class="mt-4 text-gray-600 dark:text-gray-300">Reliable delivery, real-time tracking and friendly support.</p>
       <div class="mt-8 flex items-center justify-center gap-4">
-        <button class="px-5 py-3 bg-blue-600 text-white rounded-md">Get Started</button>
-        <button class="px-5 py-3 border rounded-md">Contact Sales</button>
+        <NuxtLink to="/get-started" class="px-5 py-3 bg-primary text-surface rounded-md">Get Started</NuxtLink>
+        <NuxtLink to="/contact" class="px-5 py-3 border rounded-md">Contact Sales</NuxtLink>
       </div>
     </section>
 

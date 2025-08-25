@@ -21,12 +21,46 @@
             <NuxtLink class="text-sm text-muted hover:underline" to="/contact">Contact Us</NuxtLink>
             <NuxtLink class="ml-2 inline-flex items-center px-3 py-1.5 bg-primary text-surface text-sm rounded-md" to="/get-started">Get Started</NuxtLink>
           </nav>
+          <!-- Mobile menu button -->
+          <div class="md:hidden">
+            <button @click="open = !open" :aria-expanded="open" aria-label="Toggle menu" class="p-2 rounded-md bg-gray-100 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary/60">
+              <svg v-if="!open" xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-700 dark:text-gray-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+              <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 text-gray-700 dark:text-gray-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
+    <!-- Mobile menu panel -->
+    <transition name="mobile-menu">
+      <div v-if="open" class="md:hidden bg-white/80 dark:bg-gray-900/80 border-t border-gray-200/50 dark:border-gray-700/40">
+        <div class="px-4 py-3 space-y-2">
+          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/features" @click="open = false">Features</NuxtLink>
+          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/pricing" @click="open = false">Pricing</NuxtLink>
+          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/contact" @click="open = false">Contact Us</NuxtLink>
+          <NuxtLink class="block text-base bg-primary text-surface py-2 px-3 rounded-md" to="/get-started" @click="open = false">Get Started</NuxtLink>
+        </div>
+      </div>
+    </transition>
   </header>
 </template>
 
 <script setup>
 // no state needed yet
+import { ref } from 'vue'
+const open = ref(false)
 </script>
+
+<style scoped>
+/* mobile menu transition */
+.mobile-menu-enter-from { transform: translateY(-6px); opacity: 0 }
+.mobile-menu-enter-active { transition: transform 180ms ease, opacity 180ms ease }
+.mobile-menu-enter-to { transform: translateY(0); opacity: 1 }
+.mobile-menu-leave-from { transform: translateY(0); opacity: 1 }
+.mobile-menu-leave-active { transition: transform 140ms ease, opacity 140ms ease }
+.mobile-menu-leave-to { transform: translateY(-6px); opacity: 0 }
+</style>
