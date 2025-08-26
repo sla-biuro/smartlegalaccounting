@@ -91,12 +91,15 @@ jobs:
           echo "=== UPDATING NUXT CONFIG ==="
           # Backup original config
           cp nuxt.config.ts nuxt.config.ts.backup
-          # Create a new config that includes the pre-built CSS directly
+          # Create a new config that includes the pre-built CSS
           cat > nuxt.config.ts << 'EOF'
           // https://nuxt.com/docs/api/configuration/nuxt-config
           export default defineNuxtConfig({
             compatibilityDate: '2025-07-15',
             devtools: { enabled: true },
+            css: [
+              '~/public/tailwind-built.css'
+            ],
             app: {
               head: {
                 link: [
@@ -124,17 +127,27 @@ jobs:
       - name: Verify Tailwind processing
         run: |
           echo "=== TAILWIND PROCESSING VERIFICATION ==="
+          # Ensure CSS is copied to output
+          echo "Copying pre-built CSS to output directory..."
+          cp ./public/tailwind-built.css ./.output/public/tailwind-built.css
           echo "Check if pre-built CSS exists in output:"
           ls -la .output/public/ | grep tailwind || echo "Pre-built CSS not found in output"
           if [ -f ".output/public/tailwind-built.css" ]; then
             echo "Pre-built CSS file size: $(wc -c < .output/public/tailwind-built.css) bytes"
-            echo "First 10 lines of pre-built CSS:"
-            head -n 10 .output/public/tailwind-built.css
+            echo "First 500 chars of pre-built CSS:"
+            head -c 500 .output/public/tailwind-built.css
+            echo ""
           else
             echo "ERROR: Pre-built CSS file not found in output!"
           fi
           echo "Check if CSS is referenced in HTML:"
-          grep -o "tailwind-built\.css" .output/public/index.html || echo "CSS not referenced in HTML"
+          if grep -r "tailwind-built\.css" .output/public/*.html; then
+            echo "✅ CSS is referenced in HTML"
+          else
+            echo "❌ CSS not referenced in HTML"
+            echo "HTML head section:"
+            grep -A 20 "<head>" .output/public/index.html | head -25
+          fi
           echo "CSS file sizes (should be larger if Tailwind is working):"
           find .output/public -name "*.css" -exec wc -c {} \;
           
