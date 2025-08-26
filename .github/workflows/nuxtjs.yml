@@ -85,10 +85,15 @@ jobs:
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
         
       - name: Build Nuxt application
-        run: ${{ steps.detect-package-manager.outputs.manager }} run generate
+        run: |
+          echo "Building with base URL: /${{ github.event.repository.name }}/"
+          echo "Repository name: ${{ github.event.repository.name }}"
+          ${{ steps.detect-package-manager.outputs.manager }} run generate
         env:
           # Ensure Tailwind CSS processes all styles and use production base URL
           NODE_ENV: production
+          # Set the base URL for GitHub Pages project repository
+          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
           
       - name: List generated files (debug)
         run: |

@@ -9,7 +9,7 @@ export default defineNuxtConfig({
     preset: 'github_pages'
   },
   app: {
-    baseURL: '/logistics-site/',
+    baseURL: process.env.NUXT_APP_BASE_URL || '/logistics-site/',
   },
   vite: {
     define: {
