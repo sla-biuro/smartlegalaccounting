@@ -86,23 +86,29 @@ jobs:
         
       - name: Build Nuxt application
         run: |
-          echo "Building with base URL: /${{ github.event.repository.name }}/"
+          echo "Building with base URL: /logistics-site/"
           echo "Repository name: ${{ github.event.repository.name }}"
+          echo "GitHub event repository name: ${{ github.event.repository.name }}"
           ${{ steps.detect-package-manager.outputs.manager }} run generate
         env:
           # Ensure Tailwind CSS processes all styles and use production base URL
           NODE_ENV: production
-          # Set the base URL for GitHub Pages project repository
-          NUXT_APP_BASE_URL: /${{ github.event.repository.name }}/
+          # Set the base URL explicitly for GitHub Pages project repository
+          NUXT_APP_BASE_URL: /logistics-site/
           
       - name: List generated files (debug)
         run: |
           echo "Generated files:"
           ls -la .output/public/
-          echo "Index.html content (first 500 chars):"
-          head -c 500 .output/public/index.html
+          echo ""
+          echo "Index.html content (first 1000 chars):"
+          head -c 1000 .output/public/index.html
+          echo ""
           echo "CSS files:"
           ls -la .output/public/_nuxt/*.css || echo "No CSS files found"
+          echo ""
+          echo "Checking if CSS contains base URL:"
+          grep -r "logistics-site" .output/public/ || echo "No logistics-site references found"
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
