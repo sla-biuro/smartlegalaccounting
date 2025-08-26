@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     exposeConfig: false,
     viewer: true,
   },
+  ssr: false,
   nitro: {
     preset: 'github_pages'
   },
