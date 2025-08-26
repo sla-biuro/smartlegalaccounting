@@ -79,38 +79,40 @@ jobs:
         run: |
           echo "=== FORCING TAILWIND BUILD ==="
           # Build Tailwind CSS manually to ensure all utilities are included
-          npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/tailwind-built.css --minify
+          npx tailwindcss -i ./assets/css/tailwind.css -o ./public/tailwind-built.css --minify
           echo "Original CSS size: $(wc -c < ./assets/css/tailwind.css) bytes"
-          echo "Built CSS size: $(wc -c < ./assets/css/tailwind-built.css) bytes"
+          echo "Built CSS size: $(wc -c < ./public/tailwind-built.css) bytes"
           # Show first few lines to verify content
           echo "Built CSS content preview:"
-          head -n 20 ./assets/css/tailwind-built.css
-          # Replace the original CSS with the built version
-          mv ./assets/css/tailwind-built.css ./assets/css/tailwind.css
-          echo "Replaced original CSS with pre-built version"
+          head -n 20 ./public/tailwind-built.css
+          echo "Pre-built CSS will be served directly from /tailwind-built.css"
       - name: Update Nuxt config for pre-built CSS
         run: |
           echo "=== UPDATING NUXT CONFIG ==="
           # Backup original config
           cp nuxt.config.ts nuxt.config.ts.backup
-          # Create a new config that just loads the CSS without Tailwind module processing
+          # Create a new config that includes the pre-built CSS directly
           cat > nuxt.config.ts << 'EOF'
           // https://nuxt.com/docs/api/configuration/nuxt-config
           export default defineNuxtConfig({
             compatibilityDate: '2025-07-15',
             devtools: { enabled: true },
-            css: ['~/assets/css/tailwind.css'],
+            app: {
+              head: {
+                link: [
+                  { rel: 'stylesheet', href: process.env.NODE_ENV === 'production' ? '/logistics-site/tailwind-built.css' : '/tailwind-built.css' }
+                ]
+              },
+              baseURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/',
+              cdnURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/'
+            },
             ssr: false,
             nitro: {
               preset: 'github_pages'
-            },
-            app: {
-              baseURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/',
-              cdnURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/'
             }
           })
           EOF
-          echo "Updated Nuxt config to use pre-built CSS"
+          echo "Updated Nuxt config to include pre-built CSS directly"
           cat nuxt.config.ts
           
       - name: Generate static site
@@ -122,8 +124,17 @@ jobs:
       - name: Verify Tailwind processing
         run: |
           echo "=== TAILWIND PROCESSING VERIFICATION ==="
-          echo "Check if Tailwind classes are in generated CSS:"
-          find .output/public -name "*.css" -exec grep -l "bg-gradient-to-b\|min-h-screen\|flex\|items-center" {} \; || echo "No Tailwind classes found in CSS files"
+          echo "Check if pre-built CSS exists in output:"
+          ls -la .output/public/ | grep tailwind || echo "Pre-built CSS not found in output"
+          if [ -f ".output/public/tailwind-built.css" ]; then
+            echo "Pre-built CSS file size: $(wc -c < .output/public/tailwind-built.css) bytes"
+            echo "First 10 lines of pre-built CSS:"
+            head -n 10 .output/public/tailwind-built.css
+          else
+            echo "ERROR: Pre-built CSS file not found in output!"
+          fi
+          echo "Check if CSS is referenced in HTML:"
+          grep -o "tailwind-built\.css" .output/public/index.html || echo "CSS not referenced in HTML"
           echo "CSS file sizes (should be larger if Tailwind is working):"
           find .output/public -name "*.css" -exec wc -c {} \;
           
