@@ -75,10 +75,49 @@ jobs:
           node -e "console.log('Tailwind config exists:', require('fs').existsSync('./tailwind.config.js'))"
           node -e "console.log('CSS file exists:', require('fs').existsSync('./assets/css/tailwind.css'))"
           
+      - name: Force Tailwind CSS build
+        run: |
+          echo "=== FORCING TAILWIND BUILD ==="
+          # Build Tailwind CSS manually to ensure all utilities are included
+          npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/tailwind-built.css --minify
+          echo "Original CSS size: $(wc -c < ./assets/css/tailwind.css) bytes"
+          echo "Built CSS size: $(wc -c < ./assets/css/tailwind-built.css) bytes"
+          # Show first few lines to verify content
+          echo "Built CSS content preview:"
+          head -n 20 ./assets/css/tailwind-built.css
+          # Replace the original CSS with the built version
+          mv ./assets/css/tailwind-built.css ./assets/css/tailwind.css
+          echo "Replaced original CSS with pre-built version"
+      - name: Update Nuxt config for pre-built CSS
+        run: |
+          echo "=== UPDATING NUXT CONFIG ==="
+          # Backup original config
+          cp nuxt.config.ts nuxt.config.ts.backup
+          # Create a new config that just loads the CSS without Tailwind module processing
+          cat > nuxt.config.ts << 'EOF'
+          // https://nuxt.com/docs/api/configuration/nuxt-config
+          export default defineNuxtConfig({
+            compatibilityDate: '2025-07-15',
+            devtools: { enabled: true },
+            css: ['~/assets/css/tailwind.css'],
+            ssr: false,
+            nitro: {
+              preset: 'github_pages'
+            },
+            app: {
+              baseURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/',
+              cdnURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/'
+            }
+          })
+          EOF
+          echo "Updated Nuxt config to use pre-built CSS"
+          cat nuxt.config.ts
+          
       - name: Generate static site
         run: npm run generate
         env:
           NODE_ENV: production
+          TAILWIND_MODE: build
           
       - name: Verify Tailwind processing
         run: |
