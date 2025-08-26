@@ -89,6 +89,7 @@ jobs:
           echo "Building with base URL: /logistics-site/"
           echo "Repository name: ${{ github.event.repository.name }}"
           echo "GitHub event repository name: ${{ github.event.repository.name }}"
+          ${{ steps.detect-package-manager.outputs.manager }} run build
           ${{ steps.detect-package-manager.outputs.manager }} run generate
         env:
           # Ensure Tailwind CSS processes all styles and use production base URL
@@ -97,7 +98,12 @@ jobs:
           NUXT_APP_BASE_URL: /logistics-site/
           # Force the correct preset
           NITRO_PRESET: github_pages
-          
+      - name: Check generated CSS
+        run: |
+          echo "CSS files in _nuxt:"
+          ls -la .output/public/_nuxt/*.css
+          echo "Preview first 200 lines:"
+          head -n 200 .output/public/_nuxt/*.css
       - name: List generated files (debug)
         run: |
           echo "Generated files:"
