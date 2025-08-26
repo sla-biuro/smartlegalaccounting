@@ -6,9 +6,18 @@ export default defineNuxtConfig({
     '@nuxtjs/tailwindcss'
   ],
   nitro: {
-    preset: process.env.NODE_ENV === 'production' && !process.env.NUXT_APP_BASE_URL ? 'github_pages' : undefined
+    preset: 'github_pages'
   },
   app: {
-    baseURL: process.env.NUXT_APP_BASE_URL || (process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/'),
+    baseURL: '/logistics-site/',
+  },
+  // Override for local development
+  $development: {
+    app: {
+      baseURL: '/'
+    },
+    nitro: {
+      preset: 'static'
+    }
   }
 })

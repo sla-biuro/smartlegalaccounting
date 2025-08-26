@@ -6,7 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "generate:local": "cross-env NUXT_APP_BASE_URL=/ nuxt generate",
+    "generate:local": "cross-env NODE_ENV=development nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
   },
