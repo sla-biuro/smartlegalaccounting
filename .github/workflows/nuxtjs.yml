@@ -95,6 +95,8 @@ jobs:
           NODE_ENV: production
           # Set the base URL explicitly for GitHub Pages project repository
           NUXT_APP_BASE_URL: /logistics-site/
+          # Force the correct preset
+          NITRO_PRESET: github_pages
           
       - name: List generated files (debug)
         run: |
