@@ -87,9 +87,8 @@ jobs:
       - name: Build Nuxt application
         run: ${{ steps.detect-package-manager.outputs.manager }} run generate
         env:
-          # Ensure Tailwind CSS processes all styles
+          # Ensure Tailwind CSS processes all styles and use production base URL
           NODE_ENV: production
-          NITRO_PRESET: github_pages
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
