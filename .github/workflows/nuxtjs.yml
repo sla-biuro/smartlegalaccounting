@@ -35,7 +35,6 @@ jobs:
         
       - name: Force Tailwind rebuild
         run: |
-          # Принудительно пересобираем Tailwind
           npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/tailwind-built.css --watch=false
           ls -la assets/css/
           echo "Built Tailwind CSS size:"
@@ -43,7 +42,6 @@ jobs:
         
       - name: Update Nuxt config for built CSS
         run: |
-          # Создаем временную версию конфига, которая использует уже собранный CSS
           cp nuxt.config.ts nuxt.config.backup.ts
           sed -i "s|assets/css/tailwind.css|assets/css/tailwind-built.css|g" nuxt.config.ts || true
           
