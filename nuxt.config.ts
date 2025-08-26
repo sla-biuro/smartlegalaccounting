@@ -4,5 +4,11 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: [
     '@nuxtjs/tailwindcss'
-  ]
+  ],
+  nitro: {
+    preset: process.env.NODE_ENV === 'production' && !process.env.NUXT_APP_BASE_URL ? 'github_pages' : undefined
+  },
+  app: {
+    baseURL: process.env.NUXT_APP_BASE_URL || (process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/'),
+  }
 })
