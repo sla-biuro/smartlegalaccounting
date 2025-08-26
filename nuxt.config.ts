@@ -11,13 +11,9 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/logistics-site/',
   },
-  // Override for local development
-  $development: {
-    app: {
-      baseURL: '/'
+  vite: {
+    define: {
+      'process.env.DEBUG': false,
     },
-    nitro: {
-      preset: 'static'
-    }
-  }
+  },
 })

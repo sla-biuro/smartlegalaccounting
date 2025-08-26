@@ -90,6 +90,15 @@ jobs:
           # Ensure Tailwind CSS processes all styles and use production base URL
           NODE_ENV: production
           
+      - name: List generated files (debug)
+        run: |
+          echo "Generated files:"
+          ls -la .output/public/
+          echo "Index.html content (first 500 chars):"
+          head -c 500 .output/public/index.html
+          echo "CSS files:"
+          ls -la .output/public/_nuxt/*.css || echo "No CSS files found"
+          
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
