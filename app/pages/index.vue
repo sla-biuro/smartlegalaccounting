@@ -21,7 +21,7 @@
       <div class="p-6 bg-white/60 rounded-lg shadow">
         <h3 class="font-semibold">Support</h3>
         <p class="mt-2 text-sm text-gray-600">Expert help when you need it.</p>
-      </div>
+      </div> 
     </section>
   </main>
 </template>
