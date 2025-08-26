@@ -16,6 +16,7 @@ export default defineNuxtConfig({
     preset: 'github_pages'
   },
   app: {
-    baseURL: process.env.NUXT_APP_BASE_URL || '/logistics-site/',
+    baseURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/',
+    cdnURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/'
   },
 })

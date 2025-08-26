@@ -88,35 +88,49 @@ jobs:
         run: |
           echo "Building with base URL: /logistics-site/"
           echo "Repository name: ${{ github.event.repository.name }}"
-          echo "GitHub event repository name: ${{ github.event.repository.name }}"
           ${{ steps.detect-package-manager.outputs.manager }} run build
-          ${{ steps.detect-package-manager.outputs.manager }} run generate
         env:
           # Ensure Tailwind CSS processes all styles and use production base URL
           NODE_ENV: production
           # Set the base URL explicitly for GitHub Pages project repository
           NUXT_APP_BASE_URL: /logistics-site/
+          # Set CDN URL to match base URL
+          NUXT_APP_CDN_URL: /logistics-site/
           # Force the correct preset
           NITRO_PRESET: github_pages
-      - name: Check generated CSS
+          
+      - name: Generate static files
         run: |
-          echo "CSS files in _nuxt:"
-          ls -la .output/public/_nuxt/*.css
-          echo "Preview first 200 lines:"
-          head -n 200 .output/public/_nuxt/*.css
-      - name: List generated files (debug)
+          ${{ steps.detect-package-manager.outputs.manager }} run generate
+        env:
+          NODE_ENV: production
+          NUXT_APP_BASE_URL: /logistics-site/
+          NUXT_APP_CDN_URL: /logistics-site/
+          NITRO_PRESET: github_pages
+          
+      - name: Fix asset paths in generated files
+        run: |
+          # Fix CSS and JS asset paths
+          find .output/public -name "*.html" -type f -exec sed -i 's|href="/_nuxt/|href="/logistics-site/_nuxt/|g' {} +
+          find .output/public -name "*.html" -type f -exec sed -i 's|src="/_nuxt/|src="/logistics-site/_nuxt/|g' {} +
+          find .output/public -name "*.css" -type f -exec sed -i 's|url(/_nuxt/|url(/logistics-site/_nuxt/|g' {} +
+          
+      - name: Check generated files (debug)
         run: |
           echo "Generated files:"
           ls -la .output/public/
           echo ""
-          echo "Index.html content (first 1000 chars):"
-          head -c 1000 .output/public/index.html
+          echo "Index.html content (first 2000 chars):"
+          head -c 2000 .output/public/index.html
           echo ""
           echo "CSS files:"
           ls -la .output/public/_nuxt/*.css || echo "No CSS files found"
           echo ""
-          echo "Checking if CSS contains base URL:"
-          grep -r "logistics-site" .output/public/ || echo "No logistics-site references found"
+          echo "Checking asset paths in HTML:"
+          grep -n "_nuxt" .output/public/index.html || echo "No _nuxt references found"
+          echo ""
+          echo "CSS content preview:"
+          head -n 50 .output/public/_nuxt/*.css || echo "No CSS content found"
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
