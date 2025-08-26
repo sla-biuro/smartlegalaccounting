@@ -1,177 +1,47 @@
 name: Deploy Nuxt to GitHub Pages
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches: ["main"]
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
 
 jobs:
-  # Build job
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
         with:
-          node-version: "20"
+          node-version: 20
           cache: npm
-          
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          static_site_generator: nuxt
-          
+
       - name: Install dependencies
-        run: npm ci
-        
-      - name: Clear Nuxt cache
-        run: |
-          rm -rf .nuxt .output node_modules/.cache
-          echo "Cleared Nuxt cache directories"
-        
-      - name: Verify Tailwind installation
-        run: |
-          echo "=== TAILWIND VERIFICATION ==="
-          echo "Checking if Tailwind is properly installed:"
-          npm list @nuxtjs/tailwindcss
-          npm list tailwindcss
-          echo "Verifying Tailwind CSS file exists:"
-          ls -la assets/css/
-          cat assets/css/tailwind.css
-        
-      - name: Debug Tailwind setup
-        run: |
-          echo "=== TAILWIND DEBUG ==="
-          echo "Current working directory:"
-          pwd
-          echo "Tailwind config:"
-          cat tailwind.config.js
-          echo "Nuxt config:"
-          cat nuxt.config.ts
-          echo "CSS file content:"
-          cat assets/css/tailwind.css
-          echo "Package.json (tailwind related):"
-          grep -A 5 -B 5 tailwindcss package.json || echo "No tailwindcss found"
-          echo "Node modules tailwind:"
-          ls node_modules | grep tailwind || echo "No tailwind modules found"
-          echo "Checking Nuxt Tailwind module configuration:"
-          node -e "console.log('Tailwind config exists:', require('fs').existsSync('./tailwind.config.js'))"
-          node -e "console.log('CSS file exists:', require('fs').existsSync('./assets/css/tailwind.css'))"
-          
-      - name: Force Tailwind CSS build
-        run: |
-          echo "=== FORCING TAILWIND BUILD ==="
-          # Build Tailwind CSS manually to ensure all utilities are included
-          npx tailwindcss -i ./assets/css/tailwind.css -o ./public/tailwind-built.css --minify
-          echo "Original CSS size: $(wc -c < ./assets/css/tailwind.css) bytes"
-          echo "Built CSS size: $(wc -c < ./public/tailwind-built.css) bytes"
-          # Show first few lines to verify content
-          echo "Built CSS content preview:"
-          head -n 20 ./public/tailwind-built.css
-          echo "Pre-built CSS will be served directly from /tailwind-built.css"
-      - name: Update Nuxt config for pre-built CSS
-        run: |
-          echo "=== UPDATING NUXT CONFIG ==="
-          # Backup original config
-          cp nuxt.config.ts nuxt.config.ts.backup
-          # Create a new config that includes the pre-built CSS
-          cat > nuxt.config.ts << 'EOF'
-          // https://nuxt.com/docs/api/configuration/nuxt-config
-          export default defineNuxtConfig({
-            compatibilityDate: '2025-07-15',
-            devtools: { enabled: true },
-            css: [
-              '~/public/tailwind-built.css'
-            ],
-            app: {
-              head: {
-                link: [
-                  { rel: 'stylesheet', href: process.env.NODE_ENV === 'production' ? '/logistics-site/tailwind-built.css' : '/tailwind-built.css' }
-                ]
-              },
-              baseURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/',
-              cdnURL: process.env.NODE_ENV === 'production' ? '/logistics-site/' : '/'
-            },
-            ssr: false,
-            nitro: {
-              preset: 'github_pages'
-            }
-          })
-          EOF
-          echo "Updated Nuxt config to include pre-built CSS directly"
-          cat nuxt.config.ts
-          
+        run: npm install --no-audit --no-fund
+
       - name: Generate static site
-        run: npm run generate
         env:
           NODE_ENV: production
-          TAILWIND_MODE: build
-          
-      - name: Verify Tailwind processing
-        run: |
-          echo "=== TAILWIND PROCESSING VERIFICATION ==="
-          # Ensure CSS is copied to output
-          echo "Copying pre-built CSS to output directory..."
-          cp ./public/tailwind-built.css ./.output/public/tailwind-built.css
-          echo "Check if pre-built CSS exists in output:"
-          ls -la .output/public/ | grep tailwind || echo "Pre-built CSS not found in output"
-          if [ -f ".output/public/tailwind-built.css" ]; then
-            echo "Pre-built CSS file size: $(wc -c < .output/public/tailwind-built.css) bytes"
-            echo "First 500 chars of pre-built CSS:"
-            head -c 500 .output/public/tailwind-built.css
-            echo ""
-          else
-            echo "ERROR: Pre-built CSS file not found in output!"
-          fi
-          echo "Check if CSS is referenced in HTML:"
-          if grep -r "tailwind-built\.css" .output/public/*.html; then
-            echo "✅ CSS is referenced in HTML"
-          else
-            echo "❌ CSS not referenced in HTML"
-            echo "HTML head section:"
-            grep -A 20 "<head>" .output/public/index.html | head -25
-          fi
-          echo "CSS file sizes (should be larger if Tailwind is working):"
-          find .output/public -name "*.css" -exec wc -c {} \;
-          
-      - name: Verify build
-        run: |
-          echo "=== BUILD VERIFICATION ==="
-          echo "Generated CSS files and sizes:"
-          find .output/public -name "*.css" -exec ls -lh {} +
-          echo ""
-          echo "CSS file contents (first 100 lines):"
-          find .output/public -name "*.css" -exec head -n 100 {} +
-          echo ""
-          echo "Sample HTML content:"
-          head -n 50 .output/public/index.html
-          echo ""
-          echo "Checking for Tailwind classes in HTML:"
-          grep -o "class=\"[^\"]*\"" .output/public/index.html | head -10
-          
+          NITRO_PRESET: github_pages
+        run: npm run generate
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./.output/public
 
-  # Deployment job
   deploy:
     environment:
       name: github-pages
