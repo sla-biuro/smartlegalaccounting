@@ -9,11 +9,12 @@ function withOpacity(variable) {
 module.exports = {
   darkMode: 'class',
   content: [
-    './app.vue',
-    './app/**/*.{vue,js,ts,tsx}',
-    './components/**/*.{vue,js,ts}',
-    './pages/**/*.{vue,js,ts}',
-    './layouts/**/*.{vue,js,ts}'
+    "./components/**/*.{js,vue,ts}",
+    "./layouts/**/*.vue",
+    "./pages/**/*.vue",
+    "./plugins/**/*.{js,ts}",
+    "./app.vue",
+    "./error.vue"
   ],
   theme: {
     extend: {

@@ -1,3 +1,4 @@
+
 # Workflow for building and deploying a Nuxt 4 site with Tailwind CSS to GitHub Pages
 name: Deploy Nuxt site to Pages
 
@@ -28,7 +29,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        
+
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -51,24 +52,24 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
-          
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-          
+
       - name: Setup pnpm
         if: steps.detect-package-manager.outputs.manager == 'pnpm'
         uses: pnpm/action-setup@v4
         with:
           version: latest
-          
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
           static_site_generator: nuxt
-          
+
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -80,15 +81,24 @@ jobs:
           key: ${{ runner.os }}-nuxt-build-${{ hashFiles('package-lock.json', 'yarn.lock', 'pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-nuxt-build-
-            
+
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-        
-      - name: Build Nuxt application
+
+      - name: Clean previous builds
+        run: |
+          rm -rf .nuxt
+          rm -rf .output
+          rm -rf node_modules/.cache/nuxt
+
+      - name: Build and Generate Nuxt application
         run: |
           echo "Building with base URL: /logistics-site/"
           echo "Repository name: ${{ github.event.repository.name }}"
-          ${{ steps.detect-package-manager.outputs.manager }} run build
+          echo "Node environment: production"
+          echo "Tailwind config exists: $(test -f tailwind.config.js && echo 'yes' || echo 'no')"
+          echo "CSS files in assets: $(find assets -name '*.css' 2>/dev/null || echo 'none found')"
+          ${{ steps.detect-package-manager.outputs.manager }} run generate
         env:
           # Ensure Tailwind CSS processes all styles and use production base URL
           NODE_ENV: production
@@ -98,23 +108,16 @@ jobs:
           NUXT_APP_CDN_URL: /logistics-site/
           # Force the correct preset
           NITRO_PRESET: github_pages
-          
-      - name: Generate static files
-        run: |
-          ${{ steps.detect-package-manager.outputs.manager }} run generate
-        env:
-          NODE_ENV: production
-          NUXT_APP_BASE_URL: /logistics-site/
-          NUXT_APP_CDN_URL: /logistics-site/
-          NITRO_PRESET: github_pages
-          
+          # Force Tailwind to process in production
+          TAILWIND_MODE: build
+
       - name: Fix asset paths in generated files
         run: |
           # Fix CSS and JS asset paths
           find .output/public -name "*.html" -type f -exec sed -i 's|href="/_nuxt/|href="/logistics-site/_nuxt/|g' {} +
           find .output/public -name "*.html" -type f -exec sed -i 's|src="/_nuxt/|src="/logistics-site/_nuxt/|g' {} +
           find .output/public -name "*.css" -type f -exec sed -i 's|url(/_nuxt/|url(/logistics-site/_nuxt/|g' {} +
-          
+
       - name: Check generated files (debug)
         run: |
           echo "Generated files:"
@@ -131,7 +134,7 @@ jobs:
           echo ""
           echo "CSS content preview:"
           head -n 50 .output/public/_nuxt/*.css || echo "No CSS content found"
-          
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
