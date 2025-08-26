@@ -41,6 +41,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
+      - name: Clear Nuxt cache
+        run: |
+          rm -rf .nuxt .output node_modules/.cache
+          echo "Cleared Nuxt cache directories"
+        
       - name: Verify Tailwind installation
         run: |
           echo "=== TAILWIND VERIFICATION ==="
@@ -66,11 +71,22 @@ jobs:
           grep -A 5 -B 5 tailwindcss package.json || echo "No tailwindcss found"
           echo "Node modules tailwind:"
           ls node_modules | grep tailwind || echo "No tailwind modules found"
+          echo "Checking Nuxt Tailwind module configuration:"
+          node -e "console.log('Tailwind config exists:', require('fs').existsSync('./tailwind.config.js'))"
+          node -e "console.log('CSS file exists:', require('fs').existsSync('./assets/css/tailwind.css'))"
           
       - name: Generate static site
         run: npm run generate
         env:
           NODE_ENV: production
+          
+      - name: Verify Tailwind processing
+        run: |
+          echo "=== TAILWIND PROCESSING VERIFICATION ==="
+          echo "Check if Tailwind classes are in generated CSS:"
+          find .output/public -name "*.css" -exec grep -l "bg-gradient-to-b\|min-h-screen\|flex\|items-center" {} \; || echo "No Tailwind classes found in CSS files"
+          echo "CSS file sizes (should be larger if Tailwind is working):"
+          find .output/public -name "*.css" -exec wc -c {} \;
           
       - name: Verify build
         run: |
