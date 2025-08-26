@@ -1,7 +1,9 @@
-name: Deploy Nuxt (Alternative)
+name: Deploy Nuxt to GitHub Pages
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ main ]
 
 permissions:
   contents: read
@@ -33,38 +35,51 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Force Tailwind rebuild
+      - name: Verify Tailwind installation
         run: |
-          npx tailwindcss -i ./assets/css/tailwind.css -o ./assets/css/tailwind-built.css --watch=false
+          echo "=== TAILWIND VERIFICATION ==="
+          echo "Checking if Tailwind is properly installed:"
+          npm list @nuxtjs/tailwindcss
+          npm list tailwindcss
+          echo "Verifying Tailwind CSS file exists:"
           ls -la assets/css/
-          echo "Built Tailwind CSS size:"
-          wc -c assets/css/tailwind-built.css || echo "Build failed"
+          cat assets/css/tailwind.css
         
-      - name: Update Nuxt config for built CSS
+      - name: Debug Tailwind setup
         run: |
-          cp nuxt.config.ts nuxt.config.backup.ts
-          sed -i "s|assets/css/tailwind.css|assets/css/tailwind-built.css|g" nuxt.config.ts || true
+          echo "=== TAILWIND DEBUG ==="
+          echo "Current working directory:"
+          pwd
+          echo "Tailwind config:"
+          cat tailwind.config.js
+          echo "Nuxt config:"
+          cat nuxt.config.ts
+          echo "CSS file content:"
+          cat assets/css/tailwind.css
+          echo "Package.json (tailwind related):"
+          grep -A 5 -B 5 tailwindcss package.json || echo "No tailwindcss found"
+          echo "Node modules tailwind:"
+          ls node_modules | grep tailwind || echo "No tailwind modules found"
           
-      - name: Generate with pre-built Tailwind
+      - name: Generate static site
         run: npm run generate
         env:
           NODE_ENV: production
-          NUXT_APP_BASE_URL: /logistics-site/
-          NUXT_APP_CDN_URL: /logistics-site/
-          NITRO_PRESET: github_pages
-          
-      - name: Fix asset paths
-        run: |
-          find .output/public -name "*.html" -type f -exec sed -i 's|href="/_nuxt/|href="/logistics-site/_nuxt/|g' {} +
-          find .output/public -name "*.html" -type f -exec sed -i 's|src="/_nuxt/|src="/logistics-site/_nuxt/|g' {} +
           
       - name: Verify build
         run: |
+          echo "=== BUILD VERIFICATION ==="
           echo "Generated CSS files and sizes:"
           find .output/public -name "*.css" -exec ls -lh {} +
           echo ""
+          echo "CSS file contents (first 100 lines):"
+          find .output/public -name "*.css" -exec head -n 100 {} +
+          echo ""
           echo "Sample HTML content:"
           head -n 50 .output/public/index.html
+          echo ""
+          echo "Checking for Tailwind classes in HTML:"
+          grep -o "class=\"[^\"]*\"" .output/public/index.html | head -10
           
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

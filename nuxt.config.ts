@@ -5,13 +5,6 @@ export default defineNuxtConfig({
   modules: [
     '@nuxtjs/tailwindcss'
   ],
-  //css: ['~/assets/css/tailwind.css'],
-  tailwindcss: {
-    cssPath: '~/assets/css/tailwind.css',
-    configPath: 'tailwind.config.js',
-    exposeConfig: false,
-    viewer: true,
-  },
   ssr: false,
   nitro: {
     preset: 'github_pages'

@@ -14,7 +14,8 @@ module.exports = {
     "./pages/**/*.vue",
     "./plugins/**/*.{js,ts}",
     "./app.vue",
-    "./error.vue"
+    "./error.vue",
+    "./app/**/*.vue"
   ],
   theme: {
     extend: {
