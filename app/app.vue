@@ -10,11 +10,13 @@
     <transition name="page-fade" mode="out-in">
       <NuxtPage />
     </transition>
+    <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
 import Header from "~~/components/Header.vue";
+import Footer from "~~/components/Footer.vue";
 import { ref, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import { useLocale } from '../composables/useLocale'

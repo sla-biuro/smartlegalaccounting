@@ -1,16 +1,16 @@
 <template>
   <main class="max-w-5xl mx-auto py-16 px-6">
     <section class="text-center">
-      <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">{{ companyName }}</h1>
-      <p class="mt-2 text-gray-600 dark:text-gray-300">{{ homePage?.content }}</p>
+      <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">{{ hero.headline }}</h1>
+      <p class="mt-2 text-gray-600 dark:text-gray-300">{{ hero.subheadline }}</p>
       <div class="mt-8 flex items-center justify-center gap-4">
-        <NuxtLink to="/contact" class="px-5 py-3 bg-primary text-surface rounded-md">{{ t.hero.ctaPrimary }}</NuxtLink>
-        <NuxtLink to="/features" class="px-5 py-3 border rounded-md">{{ t.hero.ctaSecondary }}</NuxtLink>
+        <NuxtLink :to="hero.cta.primary.to" class="px-5 py-3 bg-primary text-surface rounded-md">{{ hero.cta.primary.label }}</NuxtLink>
+        <NuxtLink :to="hero.cta.secondary.to" class="px-5 py-3 border rounded-md">{{ hero.cta.secondary.label }}</NuxtLink>
       </div>
     </section>
 
     <section class="mt-16">
-      <h2 class="text-2xl font-semibold">{{ t.services.title }}</h2>
+      <h2 class="text-2xl font-semibold">Services</h2>
       <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="p-6 bg-white/60 rounded-lg shadow">
           <h3 class="font-semibold">Accounting</h3>
@@ -45,12 +45,9 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useCompany } from '../../composables/useCompany'
-import { useTexts } from '../../data/texts'
 
-const { name, services, getPage } = useCompany()
-const companyName = computed(() => name.value)
+const { hero: h, services, name } = useCompany()
+const hero = computed(() => h.value)
 const companyServices = computed(() => services.value)
-const homePage = computed(() => getPage('Home'))
-
-const { t } = useTexts()
+useHead(() => ({ title: `${hero.value.headline} – ${name.value}`, meta: [ { name: 'description', content: String(hero.value.subheadline || '') } ] }))
 </script>

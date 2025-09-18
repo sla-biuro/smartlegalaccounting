@@ -8,6 +8,13 @@
       "en": "SLA",
       "pl": "SLA"
     },
+    "brand": {
+      "logo": "/favicon.ico",
+      "colors": {
+        "primary": "#2563eb",
+        "secondary": "#0ea5e9"
+      }
+    },
     "services": {
       "accounting": {
         "en": [
@@ -52,6 +59,54 @@
         "pl": "Żwirki i Wigury 6/14"
       }
     },
+    "business": {
+      "country": "PL",
+      "taxIdNIP": "",
+      "regon": "",
+      "krs": "",
+      "vatPayer": true,
+      "hours": {
+        "en": "Mon–Fri 9:00–17:00",
+        "pl": "Pon–Pt 9:00–17:00"
+      },
+      "mapsUrl": "https://maps.google.com/?q=%C5%BBywirki+i+Wigury+6/14"
+    },
+    "hero": {
+      "headline": {
+        "en": "Smart accounting and transport support",
+        "pl": "Sprytna księgowość i wsparcie transportu"
+      },
+      "subheadline": {
+        "en": "Professional services: accounting, HR, company registration and transport management.",
+        "pl": "Profesjonalne usługi: księgowość, kadry, rejestracja firm i zarządzanie transportem."
+      },
+      "cta": {
+        "primary": { "label": { "en": "Contact Us", "pl": "Skontaktuj się" }, "to": "/contact" },
+        "secondary": { "label": { "en": "See Services", "pl": "Zobacz usługi" }, "to": "/features" }
+      }
+    },
+    "navigation": [
+      { "to": "/", "label": { "en": "Home", "pl": "Strona główna" }, "order": 1 },
+      { "to": "/features", "label": { "en": "Features", "pl": "Funkcje" }, "order": 2 },
+      { "to": "/pricing", "label": { "en": "Pricing", "pl": "Cennik" }, "order": 3 },
+      { "to": "/contact", "label": { "en": "Contact", "pl": "Kontakt" }, "order": 4 },
+      { "to": "/get-started", "label": { "en": "Get Started", "pl": "Zaczynamy" }, "order": 5, "emphasis": true }
+    ],
+    "footer": {
+      "about": {
+        "en": "We support businesses in accounting, HR and transport management.",
+        "pl": "Wspieramy firmy w księgowości, kadrach i zarządzaniu transportem."
+      },
+      "social": {
+        "facebook": "",
+        "linkedin": "",
+        "x": ""
+      },
+      "legalLinks": [
+        { "label": { "en": "Privacy Policy", "pl": "Polityka prywatności" }, "url": "/privacy" },
+        { "label": { "en": "Terms of Service", "pl": "Regulamin" }, "url": "/terms" }
+      ]
+    },
     "pages": [
       {
         "name": {
@@ -73,6 +128,70 @@
           "pl": "Informacje kontaktowe i adres"
         }
       }
-    ]
+    ],
+    "features": [
+      {
+        "title": { "en": "Accounting", "pl": "Księgowość" },
+        "bullets": {
+          "en": [
+            "Full bookkeeping (KPiR & Commercial Books)",
+            "Tax declarations (VAT, PIT, CIT)"
+          ],
+          "pl": [
+            "Pełna księgowość (KPiR i Księgi Handlowe)",
+            "Deklaracje podatkowe (VAT, PIT, CIT)"
+          ]
+        }
+      },
+      {
+        "title": { "en": "Transport Management", "pl": "Zarządzanie transportem" },
+        "bullets": {
+          "en": [
+            "Use of professional competence certificate",
+            "Support in obtaining transport license > 3.5 t"
+          ],
+          "pl": [
+            "Użyczenie certyfikatu kompetencji zawodowych",
+            "Wsparcie w uzyskaniu licencji > 3,5 t"
+          ]
+        }
+      }
+    ],
+    "pricing": [
+      {
+        "name": { "en": "Starter", "pl": "Start" },
+        "price": { "en": "from 299 PLN / month", "pl": "od 299 PLN / mies." },
+        "includes": {
+          "en": ["KPiR up to X docs", "Basic HR support"],
+          "pl": ["KPiR do X dokumentów", "Podstawowe wsparcie kadr"]
+        }
+      }
+    ],
+    "faqs": [
+      {
+        "q": { "en": "Do you handle full accounting?", "pl": "Czy prowadzicie pełną księgowość?" },
+        "a": { "en": "Yes, including KPiR and Commercial Books.", "pl": "Tak, w tym KPiR oraz Księgi Handlowe." }
+      }
+    ],
+    "ui": {
+      "nav": {
+        "getStarted": { "en": "Get Started", "pl": "Zaczynamy" }
+      },
+      "contact": {
+        "labels": {
+          "name": { "en": "Name", "pl": "Imię i nazwisko" },
+          "email": { "en": "Email", "pl": "Email" },
+          "message": { "en": "Message", "pl": "Wiadomość" }
+        },
+        "buttons": { "send": { "en": "Send", "pl": "Wyślij" } },
+        "toasts": {
+          "successTitle": { "en": "Message sent", "pl": "Wiadomość wysłana" },
+          "successBody": { "en": "Thanks — your message has been sent.", "pl": "Dziękujemy — wiadomość została wysłana." },
+          "errorTitle": { "en": "Error", "pl": "Błąd" },
+          "errorBody": { "en": "Failed to send message. Please try again later.", "pl": "Nie udało się wysłać wiadomości. Spróbuj ponownie później." },
+          "networkError": { "en": "Network error. Please try again.", "pl": "Błąd sieci. Spróbuj ponownie." }
+        }
+      }
+    }
   }
 }
