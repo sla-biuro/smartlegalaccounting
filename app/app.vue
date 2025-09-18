@@ -15,8 +15,9 @@
 
 <script setup lang="ts">
 import Header from "~~/components/Header.vue";
-import { ref, reactive } from 'vue'
+import { ref, reactive, watch } from 'vue'
 import { useRouter } from 'vue-router'
+import { useLocale } from '../composables/useLocale'
 
 // simple navigation progress: only appears when navigation takes longer than 120ms
 const progress = reactive({ show: false, width: 0 })
@@ -45,6 +46,12 @@ router.afterEach(() => {
     setTimeout(() => { progress.show = false; progress.width = 0 }, 220)
   }
 })
+
+// keep <html lang> in sync with selected locale
+const { locale } = useLocale()
+if (process.client) {
+  watch(locale, (l) => { document.documentElement.lang = l }, { immediate: true })
+}
 </script>
 
 <style scoped>

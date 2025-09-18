@@ -13,13 +13,27 @@
                 <circle cx="18.5" cy="18.5" r="1.5" />
               </svg>
             </div>
-            <div class="text-lg font-semibold text-neutral dark:text-surface">ACME Logistics</div>
+            <div class="text-lg font-semibold text-neutral dark:text-surface">{{ companyName }}</div>
           </NuxtLink>
           <nav class="hidden md:flex items-center gap-4">
-            <NuxtLink class="text-sm text-muted hover:underline" to="/features">Features</NuxtLink>
-            <NuxtLink class="text-sm text-muted hover:underline" to="/pricing">Pricing</NuxtLink>
-            <NuxtLink class="text-sm text-muted hover:underline" to="/contact">Contact Us</NuxtLink>
-            <NuxtLink class="ml-2 inline-flex items-center px-3 py-1.5 bg-primary text-surface text-sm rounded-md" to="/get-started">Get Started</NuxtLink>
+            <NuxtLink class="text-sm text-muted hover:underline" to="/features">{{ t.nav.features }}</NuxtLink>
+            <NuxtLink class="text-sm text-muted hover:underline" to="/pricing">{{ t.nav.pricing }}</NuxtLink>
+            <NuxtLink class="text-sm text-muted hover:underline" to="/contact">{{ t.nav.contact }}</NuxtLink>
+            <NuxtLink class="ml-2 inline-flex items-center px-3 py-1.5 bg-primary text-surface text-sm rounded-md" to="/get-started">{{ t.nav.getStarted }}</NuxtLink>
+            <div class="ml-3 pl-3 border-l border-gray-300/60 dark:border-gray-700/60 flex items-center gap-2">
+              <button
+                class="px-2 py-1 text-xs rounded-md"
+                :class="locale === 'en' ? 'bg-gray-200/70 dark:bg-gray-700/60' : ''"
+                @click="setLocale('en')"
+                aria-label="Switch to English"
+              >EN</button>
+              <button
+                class="px-2 py-1 text-xs rounded-md"
+                :class="locale === 'pl' ? 'bg-gray-200/70 dark:bg-gray-700/60' : ''"
+                @click="setLocale('pl')"
+                aria-label="Przełącz na polski"
+              >PL</button>
+            </div>
           </nav>
           <!-- Mobile menu button -->
           <div class="md:hidden">
@@ -39,10 +53,14 @@
     <transition name="mobile-menu">
       <div v-if="open" class="md:hidden bg-white/80 dark:bg-gray-900/80 border-t border-gray-200/50 dark:border-gray-700/40">
         <div class="px-4 py-3 space-y-2">
-          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/features" @click="open = false">Features</NuxtLink>
-          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/pricing" @click="open = false">Pricing</NuxtLink>
-          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/contact" @click="open = false">Contact Us</NuxtLink>
-          <NuxtLink class="block text-base bg-primary text-surface py-2 px-3 rounded-md" to="/get-started" @click="open = false">Get Started</NuxtLink>
+          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/features" @click="open = false">{{ t.nav.features }}</NuxtLink>
+          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/pricing" @click="open = false">{{ t.nav.pricing }}</NuxtLink>
+          <NuxtLink class="block text-base text-gray-700 dark:text-gray-200 py-2" to="/contact" @click="open = false">{{ t.nav.contact }}</NuxtLink>
+          <NuxtLink class="block text-base bg-primary text-surface py-2 px-3 rounded-md" to="/get-started" @click="open = false">{{ t.nav.getStarted }}</NuxtLink>
+          <div class="flex items-center gap-2 pt-2">
+            <button class="px-2 py-1 text-xs rounded-md border" :class="locale === 'en' ? 'bg-gray-200/70 dark:bg-gray-700/60' : ''" @click="setLocale('en'); open=false">EN</button>
+            <button class="px-2 py-1 text-xs rounded-md border" :class="locale === 'pl' ? 'bg-gray-200/70 dark:bg-gray-700/60' : ''" @click="setLocale('pl'); open=false">PL</button>
+          </div>
         </div>
       </div>
     </transition>
@@ -50,9 +68,18 @@
 </template>
 
 <script setup>
-// no state needed yet
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+import { useCompany } from '../composables/useCompany'
+import { useLocale } from '../composables/useLocale'
+import { useTexts } from '../data/texts'
+
 const open = ref(false)
+
+const { name } = useCompany()
+const companyName = computed(() => name.value)
+
+const { locale, setLocale } = useLocale()
+const { t } = useTexts()
 </script>
 
 <style scoped>

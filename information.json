@@ -1,0 +1,78 @@
+{
+  "company": {
+    "name": {
+      "en": "SmartLegal Accounting Sp z o o",
+      "pl": "SmartLegal Accounting Sp z o o"
+    },
+    "abbreviation": {
+      "en": "SLA",
+      "pl": "SLA"
+    },
+    "services": {
+      "accounting": {
+        "en": [
+          "Maintaining accounting records (KPiR and Commercial Books)",
+          "Preparing tax declarations (VAT, PIT, CIT)",
+          "Preparing and sending ZUS declarations",
+          "Preparing annual financial statements"
+        ],
+        "pl": [
+          "Prowadzenie ewidencji księgowych (KPiR oraz Księgi Handlowe)",
+          "Przygotowywanie deklaracji podatkowych (VAT, PIT, CIT)",
+          "Sporządzanie i wysyłanie deklaracji ZUS",
+          "Opracowywanie rocznych sprawozdań finansowych"
+        ]
+      },
+      "hr": {
+        "en": ["HR and payroll services"],
+        "pl": ["Obsługa kadr i płac"]
+      },
+      "company_registration_support": {
+        "en": ["Support for company registration via S24 portal and CIDG"],
+        "pl": ["Wsparcie przy założeniu firmy przez portal S24 oraz CIDG"]
+      },
+      "transport_management": {
+        "en": [
+          "Transport management (use of professional competence certificate)",
+          "Support in obtaining transport license over 3.5 t",
+          "Obtaining driver certificate"
+        ],
+        "pl": [
+          "Zarządzanie transportem (użyczenie certyfikatu kompetencji zawodowej)",
+          "Wsparcie w otrzymaniu licencji transportowej powyżej 3,5 t",
+          "Uzyskanie świadectwa kierowcy"
+        ]
+      }
+    },
+    "contact": {
+      "email": "Biuro@sla.com",
+      "phone": "790 525 050",
+      "address": {
+        "en": "Żwirki i Wigury 6/14",
+        "pl": "Żwirki i Wigury 6/14"
+      }
+    },
+    "pages": [
+      {
+        "name": {
+          "en": "Home",
+          "pl": "Strona główna"
+        },
+        "content": {
+          "en": "Overview of company services and introduction",
+          "pl": "Przegląd usług firmy i wprowadzenie"
+        }
+      },
+      {
+        "name": {
+          "en": "Contact",
+          "pl": "Kontakt"
+        },
+        "content": {
+          "en": "Contact information and address",
+          "pl": "Informacje kontaktowe i adres"
+        }
+      }
+    ]
+  }
+}

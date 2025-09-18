@@ -1,27 +1,32 @@
 <template>
   <main class="max-w-4xl mx-auto py-20 px-4">
-    <h1 class="text-3xl font-bold mb-4">Contact Us</h1>
+    <h1 class="text-3xl font-bold mb-4">{{ t.contact.title }}</h1>
+    <div class="mb-6 text-gray-700">
+      <div class="font-medium">{{ companyName }}</div>
+      <div>{{ address }}</div>
+      <div><a class="underline" :href="'mailto:'+email">{{ email }}</a> · <a class="underline" :href="'tel:'+phone">{{ phone }}</a></div>
+    </div>
     <section class="border border-gray-300 rounded-lg p-6 bg-white/60">
       <form @submit.prevent="onSubmit" class="space-y-4">
         <div>
-          <label class="block text-sm font-medium text-gray-700">Name</label>
+          <label class="block text-sm font-medium text-gray-700">{{ t.contact.name }}</label>
           <input v-model="form.name" type="text" name="name" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary/60 focus:border-primary" />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700">Email</label>
+          <label class="block text-sm font-medium text-gray-700">{{ t.contact.email }}</label>
           <input v-model="form.email" type="email" name="email" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary/60 focus:border-primary" />
         </div>
 
         <div>
-          <label class="block text-sm font-medium text-gray-700">Message</label>
+          <label class="block text-sm font-medium text-gray-700">{{ t.contact.message }}</label>
           <textarea v-model="form.message" name="message" rows="5" required class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-primary/60 focus:border-primary"></textarea>
         </div>
 
         <div class="flex items-center gap-3">
           <button :disabled="sending" type="submit" class="inline-flex items-center px-4 py-2 bg-primary text-surface rounded-md disabled:opacity-60">
-            <span v-if="!sending">Send</span>
-            <span v-else>Sending...</span>
+            <span v-if="!sending">{{ t.contact.send }}</span>
+            <span v-else>{{ t.contact.sending }}</span>
           </button>
         </div>
       </form>
@@ -32,7 +37,7 @@
       <div v-if="toast.show" :class="['fixed right-4 top-6 z-50 w-80 rounded-md shadow-lg overflow-hidden', toast.type === 'success' ? 'bg-green-600' : 'bg-red-600']">
         <div class="p-3 text-white flex items-start gap-3">
           <div class="flex-1 text-sm">
-            <div class="font-medium">{{ toast.type === 'success' ? 'Message sent' : 'Error' }}</div>
+            <div class="font-medium">{{ toast.type === 'success' ? t.contact.toastSuccessTitle : t.contact.toastErrorTitle }}</div>
             <div class="mt-1">{{ toast.message }}</div>
           </div>
           <button @click="hideToast" aria-label="Close" class="text-white/90 hover:text-white">
@@ -50,6 +55,8 @@
 import { reactive, ref } from 'vue'
 import type { EmailFormData } from '../../../types/email'
 import EmailFormDataModel from '../../../types/email'
+import { useCompany } from '../../../composables/useCompany'
+import { useTexts } from '../../../data/texts'
 
 const form = reactive<EmailFormData>(new EmailFormDataModel())
 const sending = ref(false)
@@ -57,6 +64,13 @@ const error = ref('')
 
 const toast = reactive({ show: false, type: 'success' as 'success' | 'error', message: '' })
 let toastTimer: ReturnType<typeof setTimeout> | null = null
+
+const { name, address: addr, email: eml, phone: tel } = useCompany()
+const companyName = name
+const address = addr
+const email = eml
+const phone = tel
+const { t } = useTexts()
 
 async function onSubmit() {
   error.value = ''
@@ -77,15 +91,15 @@ async function onSubmit() {
       form.name = model.name
       form.email = model.email
       form.message = model.message
-      showToast('success', 'Thanks — your message has been sent.')
+      showToast('success', t.value.contact.toastSuccessBody)
     } else {
       const data = await resp.json().catch(() => ({}))
-      const msg = (data && data.error) || 'Failed to send message. Please try again later.'
+      const msg = (data && data.error) || t.value.contact.toastErrorBody
       error.value = msg
       showToast('error', msg)
     }
   } catch (err) {
-    const msg = 'Network error. Please try again.'
+    const msg = t.value.contact.toastNetworkError
     error.value = msg
     showToast('error', msg)
   } finally {
