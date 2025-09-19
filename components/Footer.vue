@@ -28,7 +28,6 @@
           <li v-if="business.taxIdNIP">NIP: {{ business.taxIdNIP }}</li>
           <li v-if="business.regon">REGON: {{ business.regon }}</li>
           <li v-if="business.krs">KRS: {{ business.krs }}</li>
-          <li>VAT: {{ business.vatPayer ? 'Yes' : 'No' }}</li>
         </ul>
       </div>
     </div>

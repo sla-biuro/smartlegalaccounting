@@ -1,6 +1,6 @@
 <template>
   <main class="max-w-4xl mx-auto py-20 px-4">
-  <h1 class="text-3xl font-bold mb-4">Contact</h1>
+  <h1 class="text-3xl font-bold mb-4">{{ pageTitle }}</h1>
     <div class="mb-6 text-gray-700">
       <div class="font-medium">{{ companyName }}</div>
       <div>{{ address }}</div>
@@ -56,6 +56,7 @@ import { reactive, ref, computed } from 'vue'
 import type { EmailFormData } from '../../../types/email'
 import EmailFormDataModel from '../../../types/email'
 import { useCompany } from '../../../composables/useCompany'
+import { useTexts } from '../../../data/texts'
 
 const form = reactive<EmailFormData>(new EmailFormDataModel())
 const sending = ref(false)
@@ -70,7 +71,9 @@ const address = addr
 const email = eml
 const phone = tel
 const ui = computed(() => uiComp.value.contact)
-useHead(() => ({ title: `Contact – ${companyName.value}` }))
+const { t } = useTexts()
+const pageTitle = computed(() => t.value.contact.title)
+useHead(() => ({ title: `${pageTitle.value} – ${companyName.value}` }))
 
 async function onSubmit() {
   error.value = ''

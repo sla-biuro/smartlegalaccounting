@@ -16,7 +16,9 @@
       }
     },
     "services": {
+      "title": { "en": "Services", "pl": "Usługi" },
       "accounting": {
+        "title": { "en": "Accounting", "pl": "Księgowość" },
         "en": [
           "Maintaining accounting records (KPiR and Commercial Books)",
           "Preparing tax declarations (VAT, PIT, CIT)",
@@ -31,14 +33,17 @@
         ]
       },
       "hr": {
+        "title": { "en": "HR", "pl": "Kadry" },
         "en": ["HR and payroll services"],
         "pl": ["Obsługa kadr i płac"]
       },
       "company_registration_support": {
+        "title": { "en": "Business Support", "pl": "Wsparcie dla przedsiębiorców" },
         "en": ["Support for company registration via S24 portal and CIDG"],
         "pl": ["Wsparcie przy założeniu firmy przez portal S24 oraz CIDG"]
       },
       "transport_management": {
+        "title": { "en": "Transport and Licensing", "pl": "Transport i licencje" },
         "en": [
           "Transport management (use of professional competence certificate)",
           "Support in obtaining transport license over 3.5 t",
@@ -64,7 +69,6 @@
       "taxIdNIP": "",
       "regon": "",
       "krs": "",
-      "vatPayer": true,
       "hours": {
         "en": "Mon–Fri 9:00–17:00",
         "pl": "Pon–Pt 9:00–17:00"
@@ -80,6 +84,10 @@
         "en": "Professional services: accounting, HR, company registration and transport management.",
         "pl": "Profesjonalne usługi: księgowość, kadry, rejestracja firm i zarządzanie transportem."
       },
+      "lead": {
+        "pl": "SmartLegal Accounting Sp. z o.o. to zespół specjalistów z wieloletnim doświadczeniem w zakresie księgowości, podatków oraz obsługi przedsiębiorstw. Naszym celem jest zapewnienie kompleksowej pomocy w prowadzeniu biznesu – od księgowości, przez kadry i płace, aż po wsparcie w transporcie i licencjonowaniu.",
+        "en": "SmartLegal Accounting Sp. z o.o. is a team of experienced specialists in accounting, taxes, and business services. Our goal is to provide comprehensive support for running your business – from bookkeeping and payroll to transport management and licensing assistance."
+      },
       "cta": {
         "primary": { "label": { "en": "Contact Us", "pl": "Skontaktuj się" }, "to": "/contact" },
         "secondary": { "label": { "en": "See Services", "pl": "Zobacz usługi" }, "to": "/features" }
@@ -87,10 +95,9 @@
     },
     "navigation": [
       { "to": "/", "label": { "en": "Home", "pl": "Strona główna" }, "order": 1 },
-      { "to": "/features", "label": { "en": "Features", "pl": "Funkcje" }, "order": 2 },
-      { "to": "/pricing", "label": { "en": "Pricing", "pl": "Cennik" }, "order": 3 },
-      { "to": "/contact", "label": { "en": "Contact", "pl": "Kontakt" }, "order": 4 },
-      { "to": "/get-started", "label": { "en": "Get Started", "pl": "Zaczynamy" }, "order": 5, "emphasis": true }
+      { "to": "/features", "label": { "en": "Services", "pl": "Usługi" }, "order": 2 },
+      
+      { "to": "/contact", "label": { "en": "Contact", "pl": "Kontakt" }, "order": 4 }
     ],
     "footer": {
       "about": {
@@ -131,7 +138,10 @@
     ],
     "features": [
       {
-        "title": { "en": "Accounting", "pl": "Księgowość" },
+        "title": { 
+          "en": "Accounting", 
+          "pl": "Księgowość" 
+        },
         "bullets": {
           "en": [
             "Full bookkeeping (KPiR & Commercial Books)",

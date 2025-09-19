@@ -1,11 +1,32 @@
 <template>
   <main class="max-w-4xl mx-auto py-20 px-4">
-    <h1 class="text-3xl font-bold mb-6">Features</h1>
+    <h1 class="text-3xl font-bold mb-6">{{ pageTitle }}</h1>
     <div class="space-y-6">
-      <div v-for="(f, idx) in features" :key="idx" class="p-6 bg-white/60 rounded-lg shadow">
-        <h2 class="font-semibold text-lg">{{ f.title }}</h2>
+      <div class="p-6 bg-white/60 rounded-lg shadow">
+        <h2 class="font-semibold text-lg">{{ companyServices.accounting.title }}</h2>
         <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
-          <li v-for="(b, j) in f.bullets" :key="j">{{ b }}</li>
+          <li v-for="(b, j) in companyServices.accounting.items" :key="j">{{ b }}</li>
+        </ul>
+      </div>
+
+      <div class="p-6 bg-white/60 rounded-lg shadow">
+        <h2 class="font-semibold text-lg">{{ companyServices.hr.title }}</h2>
+        <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
+          <li v-for="(b, j) in companyServices.hr.items" :key="j">{{ b }}</li>
+        </ul>
+      </div>
+
+      <div class="p-6 bg-white/60 rounded-lg shadow">
+        <h2 class="font-semibold text-lg">{{ companyServices.company_registration_support.title }}</h2>
+        <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
+          <li v-for="(b, j) in companyServices.company_registration_support.items" :key="j">{{ b }}</li>
+        </ul>
+      </div>
+
+      <div class="p-6 bg-white/60 rounded-lg shadow">
+        <h2 class="font-semibold text-lg">{{ companyServices.transport_management.title }}</h2>
+        <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
+          <li v-for="(b, j) in companyServices.transport_management.items" :key="j">{{ b }}</li>
         </ul>
       </div>
     </div>
@@ -16,8 +37,11 @@
 <script setup>
 import { computed } from 'vue'
 import { useCompany } from '../../../composables/useCompany'
+import { useTexts } from '../../../data/texts'
 
-const { features: feats, name } = useCompany()
-const features = computed(() => feats.value)
-useHead(() => ({ title: `Features – ${name.value}` }))
+const { services: servs, name } = useCompany()
+const { t } = useTexts()
+const companyServices = computed(() => servs.value)
+const pageTitle = computed(() => t.value.services.title)
+useHead(() => ({ title: `${pageTitle.value} – ${name.value}` }))
 </script>

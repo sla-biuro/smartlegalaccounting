@@ -20,11 +20,25 @@ export function useCompany() {
   const brand = computed(() => company.brand)
 
   const services = computed(() => ({
-    accounting: pick(company.services.accounting, locale.value),
-    hr: pick(company.services.hr, locale.value),
-    company_registration_support: pick(company.services.company_registration_support, locale.value),
-    transport_management: pick(company.services.transport_management, locale.value),
+    accounting: {
+      title: pick(company.services.accounting?.title as any, locale.value),
+      items: pick(company.services.accounting as any, locale.value) as string[]
+    },
+    hr: {
+      title: pick(company.services.hr?.title as any, locale.value),
+      items: pick(company.services.hr as any, locale.value) as string[]
+    },
+    company_registration_support: {
+      title: pick(company.services.company_registration_support?.title as any, locale.value),
+      items: pick(company.services.company_registration_support as any, locale.value) as string[]
+    },
+    transport_management: {
+      title: pick(company.services.transport_management?.title as any, locale.value),
+      items: pick(company.services.transport_management as any, locale.value) as string[]
+    },
   }))
+
+  const servicesTitle = computed(() => pick(company.services?.title as any, locale.value))
 
   const address = computed(() => pick(company.contact.address, locale.value))
   const email = computed(() => company.contact.email)
@@ -34,7 +48,6 @@ export function useCompany() {
     taxIdNIP: company.business?.taxIdNIP ?? '',
     regon: company.business?.regon ?? '',
     krs: company.business?.krs ?? '',
-    vatPayer: company.business?.vatPayer ?? false,
     hours: pick(company.business?.hours as any, locale.value),
     mapsUrl: company.business?.mapsUrl ?? ''
   }))
@@ -42,6 +55,7 @@ export function useCompany() {
   const hero = computed(() => ({
     headline: pick(company.hero?.headline as any, locale.value),
     subheadline: pick(company.hero?.subheadline as any, locale.value),
+    lead: pick(company.hero?.lead as any, locale.value),
     cta: {
       primary: { label: pick(company.hero?.cta?.primary.label as any, locale.value), to: company.hero?.cta?.primary.to ?? '#' },
       secondary: { label: pick(company.hero?.cta?.secondary.label as any, locale.value), to: company.hero?.cta?.secondary.to ?? '#' }
@@ -125,5 +139,5 @@ export function useCompany() {
     }
   }))
 
-  return { company, name, abbreviation, brand, services, address, email, phone, business, hero, navigation, footer, pages, getPage, features, pricing, faqs, ui }
+  return { company, name, abbreviation, brand, services, servicesTitle, address, email, phone, business, hero, navigation, footer, pages, getPage, features, pricing, faqs, ui }
 }
