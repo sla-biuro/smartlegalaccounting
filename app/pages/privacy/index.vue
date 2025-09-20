@@ -18,6 +18,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useLocale } from '../../../composables/useLocale'
+import { useCompany } from '../../../composables/useCompany'
 
 const { locale } = useLocale()
 
@@ -47,8 +48,9 @@ const rightsBody = computed(() => locale.value === 'pl'
 )
 
 const contactHeader = computed(() => locale.value === 'pl' ? 'Kontakt' : 'Contact')
+const { email } = useCompany()
 const contactBody = computed(() => locale.value === 'pl'
-  ? 'W sprawach dotyczących danych prosimy pisać na: Biuro@sla.com'
-  : 'For data matters please email: Biuro@sla.com'
+  ? `W sprawach dotyczących danych prosimy pisać na: ${email.value}`
+  : `For data matters please email: ${email.value}`
 )
 </script>
