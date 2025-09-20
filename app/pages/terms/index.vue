@@ -12,7 +12,11 @@
       <h2>{{ termination }}</h2>
       <p>{{ terminationBody }}</p>
       <h2>{{ contactHeader }}</h2>
-      <p>{{ contactBody }}</p>
+      <p>
+        <template v-if="locale === 'pl'">W sprawach dotyczących regulaminu prosimy pisać na:</template>
+        <template v-else>For terms-related matters please contact:</template>
+        <a class="underline" :href="'mailto:'+email">{{ email }}</a>
+      </p>
     </div>
   </main>
 </template>
@@ -57,8 +61,4 @@ const terminationBody = computed(() => locale.value === 'pl'
 
 const contactHeader = computed(() => locale.value === 'pl' ? 'Kontakt' : 'Contact')
 const { email } = useCompany()
-const contactBody = computed(() => locale.value === 'pl'
-  ? `W sprawach dotyczących regulaminu prosimy pisać na: ${email.value}`
-  : `For terms-related matters please contact: ${email.value}`
-)
 </script>

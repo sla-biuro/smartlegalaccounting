@@ -10,7 +10,11 @@
       <h2>{{ rights }}</h2>
       <p>{{ rightsBody }}</p>
       <h2>{{ contactHeader }}</h2>
-      <p>{{ contactBody }}</p>
+      <p>
+        <template v-if="locale === 'pl'">W sprawach dotyczących danych prosimy pisać na:</template>
+        <template v-else>For data matters please email:</template>
+        <a class="underline" :href="'mailto:'+email">{{ email }}</a>
+      </p>
     </div>
   </main>
 </template>
@@ -49,8 +53,4 @@ const rightsBody = computed(() => locale.value === 'pl'
 
 const contactHeader = computed(() => locale.value === 'pl' ? 'Kontakt' : 'Contact')
 const { email } = useCompany()
-const contactBody = computed(() => locale.value === 'pl'
-  ? `W sprawach dotyczących danych prosimy pisać na: ${email.value}`
-  : `For data matters please email: ${email.value}`
-)
 </script>
