@@ -1,4 +1,5 @@
 <template>
+  <div>
   <!-- Hero Section -->
   <section class="relative min-h-[50vh] flex items-center justify-center overflow-hidden">
     <div class="absolute inset-0 z-0">
@@ -35,6 +36,7 @@
       </div>
     </div>
   </main>
+  </div>
 </template>
 
 <script setup>

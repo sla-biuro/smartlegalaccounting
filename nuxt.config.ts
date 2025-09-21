@@ -42,6 +42,7 @@ export default defineNuxtConfig({
   app: {
     baseURL: '/',
     cdnURL: '/',
+     pageTransition: { name: 'page-fade', mode: 'out-in' },
     head: {
       title: `${(info as any)?.company?.name?.en || 'Site'}`,
       meta: [

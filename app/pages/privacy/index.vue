@@ -1,4 +1,5 @@
 <template>
+  <div>
   <main class="max-w-4xl mx-auto py-16 px-6">
     <h1 class="text-3xl font-bold mb-6">{{ title }}</h1>
     <div class="prose dark:prose-invert">
@@ -17,6 +18,7 @@
       </p>
     </div>
   </main>
+  </div>
 </template>
 
 <script setup>

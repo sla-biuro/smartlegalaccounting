@@ -50,7 +50,7 @@
 		@apply btn border-2 border-brandBlue/30 bg-white/20 text-brandBlue hover:bg-brandBlue/10 hover:border-brandBlue/50 backdrop-blur-sm;
 	}
 	.card {
-		@apply rounded-2xl border border-gray-200/40 dark:border-gray-700/40 bg-white/80 dark:bg-gray-800/30 backdrop-blur-lg shadow-lg hover:shadow-2xl transition-all duration-300;
+		@apply rounded-2xl border border-blue-200/60 dark:border-purple-400/40 bg-gradient-to-br from-white/90 via-blue-50/80 to-purple-50/70 dark:from-slate-800/40 dark:via-blue-900/30 dark:to-purple-800/20 backdrop-blur-lg shadow-lg hover:shadow-2xl transition-all duration-300;
 	}
 	.gradient-text {
 		background: linear-gradient(135deg, rgb(var(--color-brand-blue-rgb)), rgb(var(--color-brand-light-blue-rgb)), rgb(var(--color-brand-yellow-rgb)));
@@ -58,5 +58,16 @@
 		background-clip: text;
 		color: transparent;
 		font-weight: 800;
+	}
+
+	/* Simple page fade transitions - works with multi-root components */
+	.page-fade-enter-active,
+	.page-fade-leave-active {
+		transition: opacity 0.3s ease-in-out;
+	}
+	
+	.page-fade-enter-from,
+	.page-fade-leave-to {
+		opacity: 0;
 	}
 }

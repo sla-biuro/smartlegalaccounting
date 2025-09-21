@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gradient-to-br from-slate-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-900 dark:to-slate-800 relative overflow-hidden">
+  <div class="min-h-screen bg-gradient-to-br from-blue-100 via-purple-50 to-cyan-100 dark:from-slate-900 dark:via-blue-900 dark:to-purple-900 relative overflow-hidden">
     <!-- Background Pattern -->
     <div class="absolute inset-0 opacity-[0.02] pointer-events-none">
       <div class="absolute inset-0" style="background-image: radial-gradient(circle at 25% 25%, rgb(37 99 235) 1px, transparent 1px), radial-gradient(circle at 75% 75%, rgb(250 204 21) 1px, transparent 1px); background-size: 50px 50px;"></div>
@@ -11,10 +11,7 @@
     <div v-if="progress.show" class="fixed top-0 left-0 h-1 z-50 w-full bg-transparent pointer-events-none">
       <div class="h-1 bg-gradient-to-r from-brandBlue via-brandLightBlue to-brandYellow transition-all" :style="{ width: progress.width + '%' }"></div>
     </div>
-
-    <transition name="page-fade" mode="out-in">
       <NuxtPage />
-    </transition>
     <Footer />
   </div>
 </template>
@@ -100,7 +97,6 @@ useHead({
 </script>
 
 <style scoped>
-/* page transition */
 .page-fade-enter-from { opacity: 0; transform: translateY(6px); }
 .page-fade-enter-active { transition: opacity 260ms ease, transform 260ms ease; }
 .page-fade-leave-to { opacity: 0; transform: translateY(-6px); }

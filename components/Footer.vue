@@ -1,5 +1,5 @@
 <template>
-  <footer class="mt-32 relative">
+  <footer class="mt-32 relative z-0">
     <!-- Footer Background -->
     <div class="absolute inset-0 bg-gradient-to-t from-slate-100 via-white/50 to-transparent dark:from-gray-900 dark:via-gray-800/50 dark:to-transparent"></div>
     
@@ -10,14 +10,6 @@
           <!-- Company Info -->
           <div class="space-y-4">
             <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-full bg-gradient-to-br from-brandBlue via-brandLightBlue to-brandYellow flex items-center justify-center">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path d="M3 13v-6a2 2 0 0 1 2-2h9v8" />
-                  <path d="M13 13h6l2 3v3H20" />
-                  <circle cx="7.5" cy="18.5" r="1.5" />
-                  <circle cx="18.5" cy="18.5" r="1.5" />
-                </svg>
-              </div>
               <div class="text-xl font-bold gradient-text">{{ companyName }}</div>
             </div>
             <p class="text-gray-700 dark:text-gray-300 leading-relaxed">{{ footerData.about }}</p>
@@ -55,21 +47,9 @@
             
             <!-- Social Links -->
             <div class="flex gap-4 pt-2">
-              <a v-if="footerData.social.facebook" :href="footerData.social.facebook" target="_blank" rel="noopener" aria-label="Facebook" 
-                class="w-10 h-10 rounded-xl bg-gradient-to-br from-brandBlue/20 to-brandBlue/10 hover:from-brandBlue hover:to-brandBlue/80 text-brandBlue hover:text-white transition-all duration-300 flex items-center justify-center">
-                FB
-              </a>
-              <a v-if="footerData.social.linkedin" :href="footerData.social.linkedin" target="_blank" rel="noopener" aria-label="LinkedIn"
-                class="w-10 h-10 rounded-xl bg-gradient-to-br from-brandBlue/20 to-brandBlue/10 hover:from-brandBlue hover:to-brandBlue/80 text-brandBlue hover:text-white transition-all duration-300 flex items-center justify-center">
-                IN
-              </a>
-              <a v-if="footerData.social.x" :href="footerData.social.x" target="_blank" rel="noopener" aria-label="X"
-                class="w-10 h-10 rounded-xl bg-gradient-to-br from-brandBlue/20 to-brandBlue/10 hover:from-brandBlue hover:to-brandBlue/80 text-brandBlue hover:text-white transition-all duration-300 flex items-center justify-center">
-                X
-              </a>
               <a v-if="business.mapsUrl" :href="business.mapsUrl" target="_blank" rel="noopener" aria-label="Map"
                 class="w-10 h-10 rounded-xl bg-gradient-to-br from-brandYellow/20 to-brandYellow/10 hover:from-brandYellow hover:to-yellow-500 text-brandYellow hover:text-white transition-all duration-300 flex items-center justify-center">
-                📍
+                Maps
               </a>
             </div>
           </div>
