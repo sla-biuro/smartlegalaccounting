@@ -40,7 +40,29 @@ export function useTexts() {
         toastNetworkError: { en: 'Network error. Please try again.', pl: 'Błąd sieci. Spróbuj ponownie.' }
       },
       services: {
-        title: { en: 'Our Services', pl: 'Nasze usługi' }
+        title: { en: 'Our Services', pl: 'Nasze usługi' },
+        description: { en: 'Comprehensive solutions to streamline your business operations', pl: 'Kompleksowe rozwiązania usprawniające działanie Twojej firmy' }
+      },
+      companyValues: {
+        title: { en: 'Why Choose Our Company?', pl: 'Dlaczego wybrać naszą firmę?' },
+        subtitle: { en: 'We combine years of expertise with modern technology to deliver exceptional logistics and business support services', pl: 'Łączymy lata doświadczenia z nowoczesną technologią, aby dostarczać wyjątkowe usługi logistyczne i wsparcia biznesowego' },
+        fast: {
+          title: { en: 'Fast & Reliable', pl: 'Szybko i niezawodnie' },
+          description: { en: 'Quick turnaround times and dependable service you can trust', pl: 'Szybkie terminy realizacji i niezawodna usługa, której możesz zaufać' }
+        },
+        trusted: {
+          title: { en: 'Trusted Partner', pl: 'Zaufany partner' },
+          description: { en: 'Years of experience serving clients across various industries', pl: 'Lata doświadczenia w obsłudze klientów z różnych branż' }
+        },
+        personal: {
+          title: { en: 'Personal Touch', pl: 'Indywidualne podejście' },
+          description: { en: 'Dedicated support with personalized solutions for your needs', pl: 'Dedykowane wsparcie z personalizowanymi rozwiązaniami dla Twoich potrzeb' }
+        }
+      },
+      features: {
+        professional: { en: 'Professional Service', pl: 'Profesjonalna obsługa' },
+        support: { en: '24/7 Support', pl: 'Wsparcie 24/7' },
+        trusted: { en: 'Trusted Partner', pl: 'Zaufany partner' }
       },
       pricingPage: {
         title: { en: 'Pricing', pl: 'Cennik' }
@@ -81,7 +103,29 @@ export function useTexts() {
         toastNetworkError: pick(dict.contact.toastNetworkError)
       },
       services: {
-        title: pick(dict.services.title)
+        title: pick(dict.services.title),
+        description: pick(dict.services.description)
+      },
+      companyValues: {
+        title: pick(dict.companyValues.title),
+        subtitle: pick(dict.companyValues.subtitle),
+        fast: {
+          title: pick(dict.companyValues.fast.title),
+          description: pick(dict.companyValues.fast.description)
+        },
+        trusted: {
+          title: pick(dict.companyValues.trusted.title),
+          description: pick(dict.companyValues.trusted.description)
+        },
+        personal: {
+          title: pick(dict.companyValues.personal.title),
+          description: pick(dict.companyValues.personal.description)
+        }
+      },
+      features: {
+        professional: pick(dict.features.professional),
+        support: pick(dict.features.support),
+        trusted: pick(dict.features.trusted)
       },
       pricing: {
         title: pick(dict.pricingPage.title)

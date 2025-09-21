@@ -4,6 +4,13 @@ import info from './information.json'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  // PostCSS (Tailwind + Autoprefixer)
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
+    }
+  },
   // Enable modules
   modules: [
     '@nuxtjs/tailwindcss'

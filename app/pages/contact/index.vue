@@ -1,6 +1,21 @@
 <template>
-  <main class="max-w-4xl mx-auto py-20 px-4">
-  <h1 class="text-3xl font-bold mb-4">{{ pageTitle }}</h1>
+  <!-- Hero Section -->
+  <section class="relative min-h-[40vh] flex items-center justify-center overflow-hidden">
+    <!-- Background -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-brandBlue/10 via-brandLightBlue/5 to-brandYellow/10"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-white/10"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="relative z-10 max-w-4xl mx-auto px-6 text-center">
+      <h1 class="text-5xl md:text-6xl font-extrabold gradient-text mb-4">{{ pageTitle }}</h1>
+      <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">Get in touch with our team for professional logistics and business support</p>
+    </div>
+  </section>
+
+  <main class="max-w-6xl mx-auto py-20 px-6">
+  <h1 class="text-5xl md:text-6xl font-extrabold gradient-text mb-4 text-center">{{ pageTitle }}</h1>
     <div class="mb-6 text-gray-700">
       <div class="font-medium">{{ companyName }}</div>
       <div>{{ address }}</div>

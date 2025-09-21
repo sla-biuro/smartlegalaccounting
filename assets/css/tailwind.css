@@ -3,17 +3,23 @@
 @tailwind utilities;
 
 :root {
-	/* Palette (RGB values for easy opacity control) */
-	--color-primary-rgb: 8 88 163; /* blue-700 */
-	--color-secondary-rgb: 14 165 233; /* sky-400 */
+	/* Enhanced Palette (RGB values for easy opacity control) */
+	--color-primary-rgb: 37 99 235; /* Enhanced blue-600 */
+	--color-secondary-rgb: 14 165 233; /* sky-500 */
 	--color-accent-rgb: 16 185 129; /* emerald-400 */
 	--color-neutral-rgb: 31 41 55; /* gray-800 */
 	--color-surface-rgb: 255 255 255; /* white */
 	--color-muted-rgb: 148 163 184; /* slate-400 */
 	--color-success-rgb: 16 185 129; /* emerald-400 */
-	--color-warning-rgb: 234 179 8; /* amber-400 */
+	--color-warning-rgb: 245 158 11; /* amber-500 */
 	--color-danger-rgb: 239 68 68; /* red-500 */
 	--color-info-rgb: 56 189 248; /* sky-400 */
+
+	/* Enhanced brand colors with more vibrancy */
+	--color-brand-blue-rgb: 37 99 235; /* blue-600 */
+	--color-brand-yellow-rgb: 250 204 21; /* yellow-400 */
+	--color-brand-light-blue-rgb: 56 189 248; /* sky-400 */
+	--color-brand-dark-blue-rgb: 29 78 216; /* blue-700 */
 }
 
 .dark :root {
@@ -31,3 +37,26 @@
 .text-primary { color: rgb(var(--color-primary-rgb)); }
 .bg-surface { background-color: rgb(var(--color-surface-rgb)); }
 .text-surface { color: rgb(var(--color-surface-rgb)); }
+
+/* Components - lightweight design helpers */
+@layer components {
+	.btn {
+		@apply inline-flex items-center justify-center gap-2 rounded-md px-5 py-3 text-sm font-medium transition-all duration-300 shadow-sm hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary/60;
+	}
+	.btn-gradient {
+		@apply btn text-white bg-gradient-to-r from-brandBlue via-brandLightBlue to-brandYellow hover:from-brandDarkBlue hover:via-brandBlue hover:to-yellow-500 transform hover:scale-105;
+	}
+	.btn-outline {
+		@apply btn border-2 border-brandBlue/30 bg-white/20 text-brandBlue hover:bg-brandBlue/10 hover:border-brandBlue/50 backdrop-blur-sm;
+	}
+	.card {
+		@apply rounded-2xl border border-gray-200/40 dark:border-gray-700/40 bg-white/80 dark:bg-gray-800/30 backdrop-blur-lg shadow-lg hover:shadow-2xl transition-all duration-300;
+	}
+	.gradient-text {
+		background: linear-gradient(135deg, rgb(var(--color-brand-blue-rgb)), rgb(var(--color-brand-light-blue-rgb)), rgb(var(--color-brand-yellow-rgb)));
+		-webkit-background-clip: text;
+		background-clip: text;
+		color: transparent;
+		font-weight: 800;
+	}
+}

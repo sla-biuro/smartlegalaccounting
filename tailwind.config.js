@@ -30,6 +30,14 @@ module.exports = {
         warning: withOpacity('--color-warning-rgb'),
         danger: withOpacity('--color-danger-rgb'),
         info: withOpacity('--color-info-rgb'),
+        brandBlue: withOpacity('--color-brand-blue-rgb'),
+        brandYellow: withOpacity('--color-brand-yellow-rgb'),
+        brandLightBlue: withOpacity('--color-brand-light-blue-rgb'),
+        brandDarkBlue: withOpacity('--color-brand-dark-blue-rgb'),
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic': 'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
       }
     },
   },

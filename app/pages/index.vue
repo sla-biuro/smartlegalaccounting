@@ -1,41 +1,193 @@
 <template>
-  <main class="max-w-5xl mx-auto py-16 px-6">
-    <section class="text-center">
-      <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white">{{ hero.headline }}</h1>
-  <p class="mt-2 text-gray-600 dark:text-gray-300">{{ hero.subheadline }}</p>
-  <p class="mt-4 text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">{{ hero.lead }}</p>
-  <div class="mt-8 flex items-center justify-center gap-4">
-        <NuxtLink :to="hero.cta.primary.to" class="px-5 py-3 bg-primary text-surface rounded-md">{{ hero.cta.primary.label }}</NuxtLink>
-        <NuxtLink :to="hero.cta.secondary.to" class="px-5 py-3 border rounded-md">{{ hero.cta.secondary.label }}</NuxtLink>
+  <!-- Hero Section with Background -->
+  <section class="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-gradient-to-br from-brandBlue/10 via-sky-400/5 to-brandYellow/10"></div>
+      <img src="/hero-bg.svg" alt="" class="w-full h-full object-cover opacity-50" />
+      <div class="absolute inset-0 bg-gradient-to-t from-white/20 via-transparent to-white/10"></div>
+    </div>
+    
+    <!-- Content -->
+    <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+      <div class="backdrop-blur-sm bg-white/10 rounded-3xl p-12 border border-white/20 shadow-2xl">
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6">
+          <span class="gradient-text">{{ hero.headline }}</span>
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-200 mb-4 font-medium">{{ hero.subheadline }}</p>
+        <p class="text-lg text-gray-600 dark:text-gray-300 max-w-4xl mx-auto mb-10 leading-relaxed">{{ hero.lead }}</p>
+        
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+          <NuxtLink :to="hero.cta.primary.to" class="btn-gradient text-lg px-8 py-4 rounded-xl font-semibold transform hover:scale-105 transition-all duration-300 shadow-lg">
+            {{ hero.cta.primary.label }}
+          </NuxtLink>
+          <NuxtLink :to="hero.cta.secondary.to" class="btn-outline text-lg px-8 py-4 rounded-xl font-semibold border-2 backdrop-blur-sm">
+            {{ hero.cta.secondary.label }}
+          </NuxtLink>
+        </div>
+        
+        <!-- Feature highlights -->
+        <div class="mt-12 flex flex-wrap justify-center gap-8 text-sm text-gray-600 dark:text-gray-300">
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-gradient-to-r from-brandBlue to-brandYellow"></div>
+            <span>{{ t.features.professional }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-gradient-to-r from-brandBlue to-brandYellow"></div>
+            <span>{{ t.features.support }}</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <div class="w-2 h-2 rounded-full bg-gradient-to-r from-brandBlue to-brandYellow"></div>
+            <span>{{ t.features.trusted }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-6xl mx-auto py-20 px-6">
+
+    <!-- Services Section -->
+    <section class="mt-24">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold gradient-text mb-4">{{ t.services.title }}</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">{{ t.services.description }}</p>
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <!-- Accounting Service -->
+        <div class="card group hover:scale-[1.02] transition-all duration-300 p-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+            <img src="/accounting-service.svg" alt="" class="w-full h-full object-contain" />
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brandBlue to-sky-400 flex items-center justify-center text-white shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ companyServices.accounting.title }}</h3>
+            </div>
+            <ul class="space-y-3">
+              <li v-for="(item, idx) in companyServices.accounting.items" :key="'acc-'+idx" class="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <div class="w-2 h-2 rounded-full bg-gradient-to-r from-brandBlue to-brandYellow mt-2 flex-shrink-0"></div>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- HR Service -->
+        <div class="card group hover:scale-[1.02] transition-all duration-300 p-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+            <img src="/hr-service.svg" alt="" class="w-full h-full object-contain" />
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ companyServices.hr.title }}</h3>
+            </div>
+            <ul class="space-y-3">
+              <li v-for="(item, idx) in companyServices.hr.items" :key="'hr-'+idx" class="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <div class="w-2 h-2 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400 mt-2 flex-shrink-0"></div>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Company Registration Support -->
+        <div class="card group hover:scale-[1.02] transition-all duration-300 p-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+            <img src="/accounting-service.svg" alt="" class="w-full h-full object-contain" />
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brandYellow to-amber-400 flex items-center justify-center text-white shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ companyServices.company_registration_support.title }}</h3>
+            </div>
+            <ul class="space-y-3">
+              <li v-for="(item, idx) in companyServices.company_registration_support.items" :key="'reg-'+idx" class="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <div class="w-2 h-2 rounded-full bg-gradient-to-r from-brandYellow to-amber-400 mt-2 flex-shrink-0"></div>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Transport Management -->
+        <div class="card group hover:scale-[1.02] transition-all duration-300 p-8 relative overflow-hidden">
+          <div class="absolute top-0 right-0 w-32 h-32 opacity-10 group-hover:opacity-20 transition-opacity duration-300">
+            <img src="/truck-service.svg" alt="" class="w-full h-full object-contain" />
+          </div>
+          <div class="relative z-10">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900 dark:text-white">{{ companyServices.transport_management.title }}</h3>
+            </div>
+            <ul class="space-y-3">
+              <li v-for="(item, idx) in companyServices.transport_management.items" :key="'tm-'+idx" class="flex items-start gap-3 text-gray-700 dark:text-gray-300">
+                <div class="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mt-2 flex-shrink-0"></div>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section class="mt-16">
-      <h2 class="text-2xl font-semibold">{{ companyServicesTitle }}</h2>
-      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <div class="p-6 bg-white/60 rounded-lg shadow">
-          <h3 class="font-semibold">{{ companyServices.accounting.title }}</h3>
-          <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
-            <li v-for="(item, idx) in companyServices.accounting.items" :key="'acc-'+idx">{{ item }}</li>
-          </ul>
-        </div>
-        <div class="p-6 bg-white/60 rounded-lg shadow">
-          <h3 class="font-semibold">{{ companyServices.hr.title }}</h3>
-          <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
-            <li v-for="(item, idx) in companyServices.hr.items" :key="'hr-'+idx">{{ item }}</li>
-          </ul>
-        </div>
-        <div class="p-6 bg-white/60 rounded-lg shadow">
-          <h3 class="font-semibold">{{ companyServices.company_registration_support.title }}</h3>
-          <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
-            <li v-for="(item, idx) in companyServices.company_registration_support.items" :key="'reg-'+idx">{{ item }}</li>
-          </ul>
-        </div>
-        <div class="p-6 bg-white/60 rounded-lg shadow">
-          <h3 class="font-semibold">{{ companyServices.transport_management.title }}</h3>
-          <ul class="mt-2 list-disc list-inside text-sm text-gray-700 space-y-1">
-            <li v-for="(item, idx) in companyServices.transport_management.items" :key="'tm-'+idx">{{ item }}</li>
-          </ul>
+    <!-- Company Values Section -->
+    <section class="mt-32 relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-brandBlue/5 via-brandLightBlue/3 to-brandYellow/5 rounded-3xl"></div>
+      <div class="relative p-12 text-center">
+        <h2 class="text-4xl font-bold gradient-text mb-6">{{ t.companyValues.title }}</h2>
+        <p class="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12">
+          {{ t.companyValues.subtitle }}
+        </p>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brandBlue to-brandLightBlue flex items-center justify-center text-white shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ t.companyValues.fast.title }}</h3>
+            <p class="text-gray-600 dark:text-gray-300">{{ t.companyValues.fast.description }}</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-400 flex items-center justify-center text-white shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ t.companyValues.trusted.title }}</h3>
+            <p class="text-gray-600 dark:text-gray-300">{{ t.companyValues.trusted.description }}</p>
+          </div>
+          
+          <div class="text-center">
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-gradient-to-br from-brandYellow to-amber-400 flex items-center justify-center text-white shadow-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-2">{{ t.companyValues.personal.title }}</h3>
+            <p class="text-gray-600 dark:text-gray-300">{{ t.companyValues.personal.description }}</p>
+          </div>
         </div>
       </div>
     </section>
@@ -47,11 +199,12 @@
 import { computed } from 'vue'
 import { useCompany } from '../../composables/useCompany'
 import { useSeo } from '../../composables/useSeo'
+import { useTexts } from '../../data/texts'
 
-const { hero: h, services, name, servicesTitle } = useCompany()
-const hero = computed(() => h.value)
-const companyServices = computed(() => services.value)
+const { hero, services: companyServices, servicesTitle, name: companyName } = useCompany()
+const { t } = useTexts()
 const companyServicesTitle = computed(() => servicesTitle.value)
+
 const { setSeo } = useSeo()
 setSeo({ description: String((hero.value.lead || hero.value.subheadline) + ' Explore accounting, HR & payroll, company registration support, and transport management services tailored for your business.') })
 </script>
