@@ -42,6 +42,9 @@ export function useTexts() {
       services: {
         title: { en: 'Our Services', pl: 'Nasze usługi' }
       },
+      pricingPage: {
+        title: { en: 'Pricing', pl: 'Cennik' }
+      },
       language: {
         en: { en: 'English', pl: 'Angielski' },
         pl: { en: 'Polish', pl: 'Polski' }
@@ -79,6 +82,9 @@ export function useTexts() {
       },
       services: {
         title: pick(dict.services.title)
+      },
+      pricing: {
+        title: pick(dict.pricingPage.title)
       },
       language: {
         en: pick(dict.language.en),

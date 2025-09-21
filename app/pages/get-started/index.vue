@@ -6,7 +6,14 @@
 </template>
 
 <script setup>
+import { computed } from 'vue'
 import { useTexts } from '../../../data/texts'
+import { useCompany } from '../../../composables/useCompany'
+import { useSeo } from '../../../composables/useSeo'
+
 const { t } = useTexts()
-const pageTitle = t.value.language ? t.value.language.getStarted : 'Get Started'
+const { name } = useCompany()
+const pageTitle = computed(() => t.value.nav.getStarted || 'Get Started')
+const { setSeo } = useSeo()
+setSeo({ description: 'Get started with SmartLegal Accounting — learn how to onboard, share your documents securely, and select services such as bookkeeping, HR & payroll, tax filings, and transport licensing support.' })
 </script>

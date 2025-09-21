@@ -25,6 +25,7 @@
 import { computed } from 'vue'
 import { useLocale } from '../../../composables/useLocale'
 import { useCompany } from '../../../composables/useCompany'
+import { useSeo } from '../../../composables/useSeo'
 
 const { locale } = useLocale()
 
@@ -61,4 +62,7 @@ const terminationBody = computed(() => locale.value === 'pl'
 
 const contactHeader = computed(() => locale.value === 'pl' ? 'Kontakt' : 'Contact')
 const { email } = useCompany()
+
+const { setSeo } = useSeo()
+setSeo({ description: String(intro.value) + ' Read about scope of services, responsibilities, limitations of liability, and termination terms for our accounting and transport support services.' })
 </script>

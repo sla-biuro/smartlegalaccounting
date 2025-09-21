@@ -56,6 +56,7 @@ import { reactive, ref, computed } from 'vue'
 import type { EmailFormData } from '../../../types/email'
 import EmailFormDataModel from '../../../types/email'
 import { useCompany } from '../../../composables/useCompany'
+import { useSeo } from '../../../composables/useSeo'
 import { useTexts } from '../../../data/texts'
 
 const form = reactive<EmailFormData>(new EmailFormDataModel())
@@ -73,7 +74,8 @@ const phone = tel
 const ui = computed(() => uiComp.value.contact)
 const { t } = useTexts()
 const pageTitle = computed(() => t.value.contact.title)
-useHead(() => ({ title: `${pageTitle.value} – ${companyName.value}` }))
+const { setSeo } = useSeo()
+setSeo({ description: `Contact ${companyName.value} — email ${email.value}, phone ${phone.value}. Reach us for bookkeeping, tax filings, HR & payroll, company registration (S24, CIDG), and transport licensing support.` })
 
 async function onSubmit() {
   error.value = ''

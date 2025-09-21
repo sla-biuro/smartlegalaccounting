@@ -38,10 +38,13 @@
 import { computed } from 'vue'
 import { useCompany } from '../../../composables/useCompany'
 import { useTexts } from '../../../data/texts'
+import { useSeo } from '../../../composables/useSeo'
 
 const { services: servs, name } = useCompany()
 const { t } = useTexts()
 const companyServices = computed(() => servs.value)
 const pageTitle = computed(() => t.value.services.title)
-useHead(() => ({ title: `${pageTitle.value} – ${name.value}` }))
+const description = computed(() => `${companyServices.value.accounting.title}, ${companyServices.value.hr.title}, ${companyServices.value.company_registration_support.title}, ${companyServices.value.transport_management.title}`)
+const { setSeo } = useSeo()
+setSeo({ description: `${description.value}. Full bookkeeping (KPiR & Commercial Books), VAT/PIT/CIT filings, HR and payroll, company registration assistance (S24, CIDG), and transport licensing support.` })
 </script>

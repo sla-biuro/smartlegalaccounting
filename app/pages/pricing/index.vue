@@ -18,11 +18,13 @@
 import { computed } from 'vue'
 import { useCompany } from '../../../composables/useCompany'
 import { useTexts } from '../../../data/texts'
+import { useSeo } from '../../../composables/useSeo'
 
 const { pricing: pr, name } = useCompany()
 const { t } = useTexts()
 const pricing = computed(() => pr.value)
-const pageTitle = computed(() => t.value.services.title)
+const pageTitle = computed(() => t.value.pricing?.title || 'Pricing')
 const contactLabel = computed(() => t.value.contact.title)
-useHead(() => ({ title: `${pageTitle.value} – ${name.value}` }))
+const { setSeo } = useSeo()
+setSeo({ description: `Transparent pricing for accounting (KPiR & Commercial Books), tax declarations (VAT, PIT, CIT), HR and payroll, company registration support, and transport management services.` })
 </script>

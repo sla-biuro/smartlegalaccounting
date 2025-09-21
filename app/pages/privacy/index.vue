@@ -23,6 +23,7 @@
 import { computed } from 'vue'
 import { useLocale } from '../../../composables/useLocale'
 import { useCompany } from '../../../composables/useCompany'
+import { useSeo } from '../../../composables/useSeo'
 
 const { locale } = useLocale()
 
@@ -53,4 +54,7 @@ const rightsBody = computed(() => locale.value === 'pl'
 
 const contactHeader = computed(() => locale.value === 'pl' ? 'Kontakt' : 'Contact')
 const { email } = useCompany()
+
+const { setSeo } = useSeo()
+setSeo({ description: String(intro.value) + ' Learn what data we collect, how we use it for accounting services and client communication, and your rights regarding access, correction, and deletion.' })
 </script>

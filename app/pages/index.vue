@@ -46,10 +46,12 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useCompany } from '../../composables/useCompany'
+import { useSeo } from '../../composables/useSeo'
 
 const { hero: h, services, name, servicesTitle } = useCompany()
 const hero = computed(() => h.value)
 const companyServices = computed(() => services.value)
 const companyServicesTitle = computed(() => servicesTitle.value)
-useHead(() => ({ title: `${hero.value.headline} – ${name.value}`, meta: [ { name: 'description', content: String(hero.value.subheadline || '') } ] }))
+const { setSeo } = useSeo()
+setSeo({ description: String((hero.value.lead || hero.value.subheadline) + ' Explore accounting, HR & payroll, company registration support, and transport management services tailored for your business.') })
 </script>

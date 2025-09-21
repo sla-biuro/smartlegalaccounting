@@ -17,9 +17,12 @@
 <script setup lang="ts">
 import Header from "~~/components/Header.vue";
 import Footer from "~~/components/Footer.vue";
-import { ref, reactive, watch } from 'vue'
+import { ref, reactive, watch, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useLocale } from '../composables/useLocale'
+import { useCompany } from '../composables/useCompany'
+import { useSeo } from '../composables/useSeo'
+import { useHead, useRuntimeConfig } from 'nuxt/app'
 
 // simple navigation progress: only appears when navigation takes longer than 120ms
 const progress = reactive({ show: false, width: 0 })
@@ -51,9 +54,44 @@ router.afterEach(() => {
 
 // keep <html lang> in sync with selected locale
 const { locale } = useLocale()
-if (process.client) {
-  watch(locale, (l) => { document.documentElement.lang = l }, { immediate: true })
-}
+// Keep <html lang> reactive and add JSON-LD for Organization/WebSite
+const { name, email, phone, brand } = useCompany()
+const config = useRuntimeConfig()
+const siteUrl = (config.public?.siteUrl as string) || ''
+
+watch(locale, (l) => {
+  useHead({ htmlAttrs: { lang: l } })
+}, { immediate: true })
+
+const orgJsonLd = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: name.value,
+  url: siteUrl || undefined,
+  email: email.value,
+  telephone: phone.value,
+  logo: brand.value?.logo || '/favicon.ico',
+  sameAs: [] as string[]
+}))
+
+const webSiteJsonLd = computed(() => ({
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: name.value,
+  url: siteUrl || undefined
+}))
+
+useHead({
+  script: [
+    { type: 'application/ld+json', innerHTML: JSON.stringify(orgJsonLd.value), id: 'ld-org' },
+    { type: 'application/ld+json', innerHTML: JSON.stringify(webSiteJsonLd.value), id: 'ld-website' }
+  ],
+  // @ts-ignore - unhead: instruct to not sanitize JSON-LD
+  __dangerouslyDisableSanitizersByTagID: {
+    'ld-org': ['innerHTML'],
+    'ld-website': ['innerHTML']
+  }
+})
 </script>
 
 <style scoped>
