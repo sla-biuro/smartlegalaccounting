@@ -79,7 +79,7 @@ async function onSubmit() {
   error.value = ''
   sending.value = true
 
-  const endpoint = 'https://formspree.io/f/xeolqjlb'
+  const endpoint = 'https://formspree.io/f/mqayzpzz'
 
   try {
     const resp = await fetch(endpoint, {
