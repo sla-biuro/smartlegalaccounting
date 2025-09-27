@@ -15,7 +15,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
       <div class="card p-8 group hover:scale-[1.02] transition-all duration-300">
         <div class="flex items-center gap-4 mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brandBlue to-sky-400 flex items-center justify-center text-white shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-indigo-600 flex items-center justify-center text-yellow-300 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
             </svg>
@@ -24,7 +24,7 @@
         </div>
         <ul class="space-y-3">
           <li v-for="(b, j) in companyServices.accounting.items" :key="j" class="flex items-start gap-3 text-gray-700 dark:text-gray-300">
-            <div class="w-2 h-2 rounded-full bg-gradient-to-r from-brandBlue to-brandYellow mt-2 flex-shrink-0"></div>
+           <div class="w-2 h-2 rounded-full bg-gradient-to-r from-blue-500 to-indigo-500 mt-2 flex-shrink-0"></div>
             <span>{{ b }}</span>
           </li>
         </ul>
@@ -49,16 +49,16 @@
 
       <div class="card p-8 group hover:scale-[1.02] transition-all duration-300">
         <div class="flex items-center gap-4 mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-brandYellow to-amber-400 flex items-center justify-center text-white shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-violet-600 flex items-center justify-center text-cyan-300 shadow-lg group-hover:shadow-xl transition-shadow duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
             </svg>
           </div>
           <h2 class="text-xl font-bold text-gray-900 dark:text-white">{{ companyServices.company_registration_support.title }}</h2>
         </div>
         <ul class="space-y-3">
           <li v-for="(b, j) in companyServices.company_registration_support.items" :key="j" class="flex items-start gap-3 text-gray-700 dark:text-gray-300">
-            <div class="w-2 h-2 rounded-full bg-gradient-to-r from-brandYellow to-amber-400 mt-2 flex-shrink-0"></div>
+          <div class="w-2 h-2 rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 mt-2 flex-shrink-0"></div>
             <span>{{ b }}</span>
           </li>
         </ul>
@@ -66,7 +66,7 @@
 
       <div class="card p-8 group hover:scale-[1.02] transition-all duration-300">
         <div class="flex items-center gap-4 mb-4">
-          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-indigo-500 flex items-center justify-center text-white shadow-lg">
+          <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-blue-600 flex items-center justify-center text-white shadow-lg group-hover:shadow-xl transition-shadow duration-300">
             <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
             </svg>

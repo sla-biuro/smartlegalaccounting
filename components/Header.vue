@@ -6,14 +6,8 @@
       <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="h-16 flex items-center justify-between">
           <NuxtLink to="/" aria-label="Home" class="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-primary/60 rounded-md">
-            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brandBlue via-brandLightBlue to-brandYellow text-white flex items-center justify-center flex-shrink-0 shadow-lg">
-              <!-- simple truck icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M3 13v-6a2 2 0 0 1 2-2h9v8" />
-                <path d="M13 13h6l2 3v3H20" />
-                <circle cx="7.5" cy="18.5" r="1.5" />
-                <circle cx="18.5" cy="18.5" r="1.5" />
-              </svg>
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brandBlue via-brandLightBlue to-brandYellow text-white flex items-center justify-center flex-shrink-0 shadow-lg overflow-hidden">
+              <img src="/favicon.svg" alt="SmartLegal Accounting logo" class="w-full h-full object-cover" />
             </div>
             <div class="text-lg font-semibold gradient-text">{{ companyName }}</div>
           </NuxtLink>
