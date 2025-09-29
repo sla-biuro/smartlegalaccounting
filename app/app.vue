@@ -72,7 +72,7 @@ const orgJsonLd = computed(() => ({
   url: siteUrl || undefined,
   email: email.value,
   telephone: phone.value,
-  logo: siteUrl ? siteUrl.replace(/\/$/, '') + '/favicon.svg' : '/favicon.svg',
+  logo: siteUrl ? siteUrl.replace(/\/$/, '') + '/logo.png' : '/logo.png',
   sameAs: [] as string[]
 }))
 
@@ -85,9 +85,9 @@ const webSiteJsonLd = computed(() => ({
 
 useHead({
   link: [
-    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-    { rel: 'alternate icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-    { rel: 'alternate icon', type: 'image/png', sizes: '48x48', href: '/favicon-48x48.png' },
+  { rel: 'icon', type: 'image/png', href: '/logo.png' },
+  { rel: 'alternate icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
+  { rel: 'alternate icon', type: 'image/png', sizes: '48x48', href: '/favicon-48x48.png' },
     { rel: 'shortcut icon', href: '/favicon.ico' }
   ],
   script: [

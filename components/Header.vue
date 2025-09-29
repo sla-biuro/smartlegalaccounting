@@ -7,7 +7,7 @@
         <div class="h-16 flex items-center justify-between">
           <NuxtLink to="/" aria-label="Home" class="flex items-center gap-3 focus:outline-none focus:ring-2 focus:ring-primary/60 rounded-md">
             <div class="w-10 h-10 rounded-full bg-gradient-to-br from-brandBlue via-brandLightBlue to-brandYellow text-white flex items-center justify-center flex-shrink-0 shadow-lg overflow-hidden">
-              <img src="/favicon.svg" alt="SmartLegal Accounting logo" class="w-full h-full object-cover" />
+              <img src="/logo.png" alt="SmartLegal Accounting logo" class="w-full h-full object-cover" />
             </div>
             <div class="text-lg font-semibold gradient-text">{{ companyName }}</div>
           </NuxtLink>
