@@ -4,6 +4,12 @@ import info from './information.json'
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
+  // Prevent redirect loops
+  router: {
+    options: {
+      strict: false,
+    }
+  },
   // PostCSS (Tailwind + Autoprefixer)
   postcss: {
     plugins: {
@@ -25,10 +31,14 @@ export default defineNuxtConfig({
   // Enable SSR for SEO and prerender all routes as static HTML
   // (uses Nitro preset for GitHub Pages hosting)
   nitro: {
-    preset: 'github_pages'
+    preset: 'github_pages',
+    prerender: {
+      crawlLinks: true,
+      failOnError: false
+    }
   },
   routeRules: {
-      '/**': { prerender: true },
+    '/**': { prerender: true },
     '/sitemap.xml': { prerender: true }
   },
   runtimeConfig: {
