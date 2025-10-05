@@ -11,7 +11,10 @@
     <div v-if="progress.show" class="fixed top-0 left-0 h-1 z-50 w-full bg-transparent pointer-events-none">
       <div class="h-1 bg-gradient-to-r from-brandBlue via-brandLightBlue to-brandYellow transition-all" :style="{ width: progress.width + '%' }"></div>
     </div>
-      <NuxtPage />
+      <NuxtPage :transition="{
+        name: 'page-fade',
+        mode: 'out-in'
+      }" />
     <Footer />
   </div>
 </template>
@@ -85,10 +88,7 @@ const webSiteJsonLd = computed(() => ({
 
 useHead({
   link: [
-  { rel: 'icon', type: 'image/png', href: '/logo.png' },
-  { rel: 'alternate icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' },
-  { rel: 'alternate icon', type: 'image/png', sizes: '48x48', href: '/favicon-48x48.png' },
-    { rel: 'shortcut icon', href: '/favicon.ico' }
+    { rel: 'icon', type: 'image/png', href: '/logo.png', key: 'icon' }
   ],
   script: [
     { type: 'application/ld+json', innerHTML: JSON.stringify(orgJsonLd.value), id: 'ld-org' },

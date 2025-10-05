@@ -38,11 +38,10 @@ export default defineNuxtConfig({
         siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'https://smartlegalacc.com'
     }
   },
-  // Default app head tags
+    // Default app head tags
   app: {
     baseURL: '/',
     cdnURL: '/',
-     pageTransition: { name: 'page-fade', mode: 'out-in' },
     head: {
       title: `${(info as any)?.company?.name?.en || 'Site'}`,
       meta: [
@@ -53,11 +52,13 @@ export default defineNuxtConfig({
         // Open Graph defaults
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: (info as any)?.company?.name?.en || 'Site' },
+        { property: 'og:image', content: '/logo.png' },
         // Twitter
         { name: 'twitter:card', content: 'summary_large_image' }
       ],
       link: [
-        { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        { rel: 'icon', type: 'image/png', href: '/logo.png' },
+        { rel: 'apple-touch-icon', href: '/logo.png' }
       ]
     }
   },
