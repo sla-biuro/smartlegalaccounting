@@ -20,7 +20,9 @@ export default defineNuxtPlugin(() => {
     'transport management', 'licensing', 'certyfikat kompetencji zawodowych',
     'SmartLegal Accounting', 'biuro rachunkowe', 'Żwirki i Wigury'
   ].join(', ')
-  const defaultImage = brand.value?.logo || '/logo.png'
+  // Use absolute URL for images (required for Google Search and social media)
+  const logoUrl = brand.value?.logo || '/logo.png'
+  const defaultImage = logoUrl.startsWith('http') ? logoUrl : `${siteUrl || 'https://smartlegalacc.com'}${logoUrl}`
 
   useHead({
     title: defaultTitle,

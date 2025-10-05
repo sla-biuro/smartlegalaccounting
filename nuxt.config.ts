@@ -52,7 +52,7 @@ export default defineNuxtConfig({
         // Open Graph defaults
         { property: 'og:type', content: 'website' },
         { property: 'og:site_name', content: (info as any)?.company?.name?.en || 'Site' },
-        { property: 'og:image', content: '/logo.png' },
+        { property: 'og:image', content: `${process.env.NUXT_PUBLIC_SITE_URL || 'https://smartlegalacc.com'}/logo.png` },
         // Twitter
         { name: 'twitter:card', content: 'summary_large_image' }
       ],

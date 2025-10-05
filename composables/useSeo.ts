@@ -28,6 +28,13 @@ export function useSeo() {
     const image = opts.image
     const noindex = !!opts.noindex
 
+    // Convert relative image URLs to absolute URLs for social media and search engines
+    const absoluteImage = image 
+      ? (image.startsWith('http') ? image : `${siteUrl || 'https://smartlegalacc.com'}${image}`)
+      : (brand.value?.logo 
+          ? (String(brand.value.logo).startsWith('http') ? String(brand.value.logo) : `${siteUrl || 'https://smartlegalacc.com'}${brand.value.logo}`)
+          : `${siteUrl || 'https://smartlegalacc.com'}/logo.png`)
+
     useHead({
       title,
       meta: [
@@ -40,12 +47,12 @@ export function useSeo() {
         // Open Graph
         title ? { property: 'og:title', content: title, key: 'og:title' } : {},
   (description || hero.value?.lead) ? { property: 'og:description', content: description, key: 'og:description' } : {},
-        (image || brand.value?.logo) ? { property: 'og:image', content: image || String(brand.value?.logo || '/logo.png'), key: 'og:image' } : {},
+        absoluteImage ? { property: 'og:image', content: absoluteImage, key: 'og:image' } : {},
         canonical.value ? { property: 'og:url', content: canonical.value, key: 'og:url' } : {},
         // Twitter
         title ? { name: 'twitter:title', content: title, key: 'twitter:title' } : {},
   (description || hero.value?.lead) ? { name: 'twitter:description', content: description, key: 'twitter:description' } : {},
-        (image || brand.value?.logo) ? { name: 'twitter:image', content: image || String(brand.value?.logo || '/logo.png'), key: 'twitter:image' } : {},
+        absoluteImage ? { name: 'twitter:image', content: absoluteImage, key: 'twitter:image' } : {},
       ].filter(Boolean) as any,
       link: [
         canonical.value ? { rel: 'canonical', href: canonical.value } : undefined,
