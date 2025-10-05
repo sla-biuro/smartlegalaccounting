@@ -20,7 +20,7 @@ export default defineNuxtPlugin(() => {
     'transport management', 'licensing', 'certyfikat kompetencji zawodowych',
     'SmartLegal Accounting', 'biuro rachunkowe', 'Żwirki i Wigury'
   ].join(', ')
-  const defaultImage = brand.value?.logo || '/favicon.ico'
+  const defaultImage = brand.value?.logo || '/logo.png'
 
   useHead({
     title: defaultTitle,

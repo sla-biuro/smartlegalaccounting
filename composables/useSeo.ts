@@ -40,12 +40,12 @@ export function useSeo() {
         // Open Graph
         title ? { property: 'og:title', content: title, key: 'og:title' } : {},
   (description || hero.value?.lead) ? { property: 'og:description', content: description, key: 'og:description' } : {},
-        (image || brand.value?.logo) ? { property: 'og:image', content: image || String(brand.value?.logo || '/favicon.ico'), key: 'og:image' } : {},
+        (image || brand.value?.logo) ? { property: 'og:image', content: image || String(brand.value?.logo || '/logo.png'), key: 'og:image' } : {},
         canonical.value ? { property: 'og:url', content: canonical.value, key: 'og:url' } : {},
         // Twitter
         title ? { name: 'twitter:title', content: title, key: 'twitter:title' } : {},
   (description || hero.value?.lead) ? { name: 'twitter:description', content: description, key: 'twitter:description' } : {},
-        (image || brand.value?.logo) ? { name: 'twitter:image', content: image || String(brand.value?.logo || '/favicon.ico'), key: 'twitter:image' } : {},
+        (image || brand.value?.logo) ? { name: 'twitter:image', content: image || String(brand.value?.logo || '/logo.png'), key: 'twitter:image' } : {},
       ].filter(Boolean) as any,
       link: [
         canonical.value ? { rel: 'canonical', href: canonical.value } : undefined,
