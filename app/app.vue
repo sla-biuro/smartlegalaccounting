@@ -87,10 +87,15 @@ const webSiteJsonLd = computed(() => ({
 }))
 
 useHead({
+  meta:[
+    { name: 'apple-mobile-web-app-title', content: 'SmartLegal' }
+  ],
   link: [
     { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
     { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-    { rel: 'icon', type: 'image/png', href: '/logo.png', key: 'icon' }
+    { rel: 'icon', type: 'image/png', href: '/logo.png', sizes: '192x192', key: 'icon' },
+    { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
+    { rel: 'manifest', href: '/manifest.json' }
   ],
   script: [
     { type: 'application/ld+json', innerHTML: JSON.stringify(orgJsonLd.value), id: 'ld-org' },
