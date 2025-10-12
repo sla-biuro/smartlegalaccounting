@@ -91,9 +91,9 @@ useHead({
     { name: 'apple-mobile-web-app-title', content: 'SmartLegal' }
   ],
   link: [
-    { rel: 'icon', href: '/favicon.ico', sizes: 'any' },
-    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
-    { rel: 'icon', type: 'image/png', href: '/logo.png', sizes: '192x192', key: 'icon' },
+    { rel: 'icon', href: '/favicon.ico', sizes: 'any', key: 'favicon-ico' },
+    { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg', key: 'favicon-svg' },
+    { rel: 'icon', type: 'image/png', href: '/logo.png', sizes: '192x192', key: 'favicon-png-192' },
     { rel: 'apple-touch-icon', href: '/apple-touch-icon.png', key: 'apple-touch-icon' }
   ],
   script: [
